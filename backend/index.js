@@ -12,7 +12,7 @@ const PORT = process.env.PORT||5000;
 
 app.use(express.json());
 
-app.use('/api/auth', authRouter
+app.use('/api/auth', authRouter)
 
 app.use('/api/book',bookRouter)
 
