@@ -45,6 +45,8 @@ router.post('/update/:bookname',async(req,res)=>{
             book.bookImage=bookImage;
         }
 
+        await book.save();
+
         res.status(200).json({
             name:book.bookName,
             authorName:book.bookAuthorName,
