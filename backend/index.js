@@ -11,6 +11,7 @@ const PORT = process.env.PORT||5000;
 
 
 app.use(express.json());
+app.use(express.urlencoded({extended:true}));
 
 app.use('/api/auth', authRouter)
 
@@ -20,7 +21,7 @@ try {
     mongoose.connect(MONGOOSE).then(() => {
         console.log('Database connected');
         app.listen(PORT, () => {
-            console.log('Server has started');
+            console.log(`Server is running on port ${PORT}`);
         });
     });
 } catch (error) {

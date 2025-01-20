@@ -20,7 +20,6 @@ const userSchema = new mongoose.Schema({
     },
     avatar:{
         type:String,
-        required:true
     },
     savedBook:[{
         type:mongoose.Schema.Types.ObjectId,
