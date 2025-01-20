@@ -26,10 +26,6 @@ router.post('/new', async (req,res)=>{
     }
 })
 
-router.get('/all',(req,res)=>{
-    
-})
-
 router.post('/update/:bookname',async(req,res)=>{
     try {
         const {bookName,bookAuthorName,publishedYear,bookImage} = req.body;
@@ -43,20 +39,36 @@ router.post('/update/:bookname',async(req,res)=>{
             book.bookAuthorName = bookAuthorName;
             book.publishedYear=publishedYear;
             book.bookImage=bookImage;
+            await book.save();
+    
+            res.status(200).json({
+                name:book.bookName,
+                authorName:book.bookAuthorName,
+                publishedYear:book.publishedYear,
+                bookImage:book.bookImage
+            })
+        }else{
+            res.status(404).json({error:'Book not found'})
         }
-
-        await book.save();
-
-        res.status(200).json({
-            name:book.bookName,
-            authorName:book.bookAuthorName,
-            publishedYear:book.publishedYear,
-            bookImage:book.bookImage
-        })
-
     } catch (error) {
-        
+        console.log('error in updating the book' ,error);
     }
 })
+
+router.delete('/delete/:bookname',async(req,res)=>{
+    try {
+        const name = req.params.bookname;
+        const book = await Book.findOne({bookName:name});
+        if(book){
+            await book.deleteOne();
+            res.status(200).json({book})
+        }else{
+            res.status(400).json({error:'Book not found'})
+        }
+    } catch (error) {
+        console.log('error in deleting the book',error);
+    }
+})
+
 
 export default router;
