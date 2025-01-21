@@ -2,25 +2,31 @@ a {
     text-decoration: none;
   }
   
-  h1 {
+#heading-name{
+    color: #58c4dc;
     font-size: 30px;
   }
   
-  .nav-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    padding: 8px 16px;
-    background-color: #2c3649;
-    border-bottom: 1px solid wheat;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 5px 0px 5px 0px wheat
-  }
+  /* Default nav bar styles */
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 8px 16px;
+  background-color: #23272f;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.3s ease-in-out; /* Smooth transition for shadow */
+}
+
+/* Add shadow when scrolled */
+.nav-bar.scrolled {
+  box-shadow: 0 1px 2px rgba(118, 117, 117, 0.2);
+}
+
   
   #logo {
     height: 50px;
@@ -34,11 +40,10 @@ a {
   }
   
   #search-bar {
-    border: none;
     border-radius: 20px;
     padding: 5px 20px;
     color: black;
-    background: wheat;
+    background: #333a45;
     flex-grow: 1;
     max-width: 300px;
     margin: 0 20px;
@@ -56,7 +61,7 @@ a {
   .nav-bar ul li a {
     font-size: 20px;
     font-weight: 550;
-    color: wheat;
+    color: whitesmoke;
     transition: 0.3s;
   }
   
@@ -65,19 +70,18 @@ a {
     color: #7cf03d;
   }
   
-  footer.footer {
-    height: 60px;
+  .footer {
+    margin-top: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: black;
-    border-top: 1px solid wheat;
+    background-color: #16181d;
     border-radius: 4px;
     width: 100%;
-    position: fixed;
     bottom: 0;
     z-index: 1000;
+    min-height: 200px;
   }
   
   .footer-left {
