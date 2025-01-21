@@ -15,11 +15,12 @@ router.post("/signup", async (req, res) => {
                 message: "password length should be  8 or greater",
             });
         }
-
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password,salt);
         const user = new User({
             name,
             email,
-            password,
+            password: hashedPassword,
         });
         await user.save();
         res.status(201).json({ 

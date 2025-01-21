@@ -82,7 +82,7 @@ router.get("/:bookname", async (req, res) => {
             res.status(200).json({ book });
         } else {
             res.status(404).json({ error: "book not found" });
-        }
+        }   
     } catch (error) {
         console.log("error in getting the book", error);
     }
