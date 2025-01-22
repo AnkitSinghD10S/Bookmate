@@ -35,8 +35,22 @@ router.post("/signup", async (req, res) => {
 });
 
 router.post("/login", (req, res) => {
+    const {email,password}=req.body;
+    if(!email || !password){
+        res.status(400).json({error:"all fields are reqired"});
+    } 
+    const user= User.findOne({email:email});
+    if(!user){
+        res.status(404).json({error:"user not found"});
+    }
 
-    
+    const validPassword=bcrypt.compare(password,user.password);
+
+    if(!validPassword){
+        res.status(400).json({error:"input details does not match"});
+    }else{
+        res.status(200).json({message:"login successfull"});
+    }
 
 });
 
