@@ -1,6 +1,7 @@
 import express from "express";
 import { User } from "../models/userModel.js";
-
+import tokenGenerator from "../utils/tokens.js";
+import bcrypt from 'bcryptjs';
 const router = express.Router();
 
 router.post("/signup", async (req, res) => {
@@ -22,17 +23,20 @@ router.post("/signup", async (req, res) => {
             email,
             password: hashedPassword,
         });
-        await user.save();
-        res.status(201).json({
-            name: user.name,
-            email: user.email,
-        });
+        if(user){
+            tokenGenerator(user._id,res);
+            await user.save();
+            res.status(201).json({
+                name: user.name,
+                email: user.email,
+            });
+        }
     } catch (error) {
         console.log("error in signup", error);
     }
 });
 
-router.post("/login", (req, res) => {
+router.post("/login",async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
         res.status(400).json({ error: "all fields are reqired" });
@@ -42,12 +46,13 @@ router.post("/login", (req, res) => {
         res.status(404).json({ error: "user not found" });
     }
 
-    const validPassword = bcrypt.compare(password, user.password);
+    const validPassword = await bcrypt.compare(password, user?.password || "");
 
-    if (!validPassword) {
-        res.status(400).json({ error: "input details does not match" });
-    } else {
+    if (validPassword) {
+        tokenGenerator(user._id, res);
         res.status(200).json({ message: "login successfull" });
+    } else {
+        res.status(400).json({ error: "input details does not match" });
     }
 });
 
