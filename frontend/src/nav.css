@@ -1,61 +1,69 @@
+body {
+  margin: 0;
+  padding: 0;
+  padding-top: 80px; /* Account for the height of the nav-bar */
+}
+
 .nav-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1000;
-    padding: 8px 16px;
-    background-color: #23272f;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: box-shadow 0.3s ease-in-out; /* Smooth transition for shadow */
-  }
-  
-  /* Add shadow when scrolled */
-  .nav-bar.scrolled {
-    box-shadow: 0 1px 2px rgba(118, 117, 117, 0.2);
-  }
-  
-    
-    #logo {
-      height: 50px;
-      width: 50px;
-    }
-    
-    .nav-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    #search-bar {
-      border-radius: 20px;
-      padding: 5px 20px;
-      color: whitesmoke;
-      background: #333a45;
-      flex-grow: 1;
-      max-width: 450px;
-      margin: 0 20px;
-    }
-    
-    .nav-bar ul {
-      display: flex;
-      gap: 30px;
-    }
-    
-    .nav-bar ul li {
-      list-style: none;
-    }
-    
-    .nav-bar ul li a {
-      font-size: 20px;
-      font-weight: 550;
-      color: whitesmoke;
-      transition: 0.3s;
-    }
-    
-    .nav-bar ul li:hover a,
-    .nav-bar ul li.active a {
-      color: #7cf03d;
-    }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 10px 20px;
+  background-color: #23272f; /* Use # for hex colors */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.3s ease-in-out; /* Smooth transition for shadow */
+  height: 80px; /* Define the height of the nav-bar */
+}
+
+/* Add shadow when scrolled */
+.nav-bar.scrolled {
+  box-shadow: 0 1px 2px rgba(118, 117, 117, 0.2);
+}
+
+#logo {
+  height: 60px;
+  width: 60px;
+}
+
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#search-bar {
+  border: 0.1px solid rgb(105, 104, 104);
+  border-radius: 30px;
+  padding: 8px 40px;
+  color: whitesmoke;
+  background: #23272f;
+  flex-grow: 1;
+  max-width: 450px;
+  margin: 0 20px;
+  z-index: 10; /* Ensure it stays above other content */
+}
+
+.nav-bar ul {
+  display: flex;
+  gap: 30px;
+}
+
+.nav-bar ul li {
+  list-style: none;
+}
+
+.nav-bar ul li a {
+  font-size: 20px;
+  font-weight: 550;
+  color: rgb(226, 215, 215);
+  transition: 0.3s;
+}
+
+.nav-bar ul li:hover a,
+.nav-bar ul li.active a {
+  color: #7cf03d;
+}

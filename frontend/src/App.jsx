@@ -1,11 +1,8 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import Nav from './nav';
-import Main from './content';
+import Main from './content1';
 import Footer from './footer';
-
-
-
 
 function App() {
   return (

@@ -1,4 +1,3 @@
-
 .footer {
     margin-top: auto;
     display: flex;
@@ -32,13 +31,5 @@
   }
   
   .footer-right a:hover {
-    color: #7cf03d;
-  }
-.social-media{
- 
-    text-decoration: none;
-    transition: color 0.3s;
-}  
-.social-media a:hover {
     color: #7cf03d;
   }

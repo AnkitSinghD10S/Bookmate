@@ -21,8 +21,8 @@ function Nav() {
   return (
     <nav className="nav-bar">
       <div className="nav-left">
-        <img src="logo.png" alt="Logo" id="logo" />
-        <h1 id='heading-name'>BooꓘMate</h1>
+        <img src="logo1.png" alt="Logo" id="logo" />
+        <h1 class="text-gray-500">v1</h1>
       </div>
       <input
         type="text"
