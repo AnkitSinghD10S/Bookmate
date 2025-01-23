@@ -12,7 +12,7 @@ function Main(){
         <h2 id='abouttitle'>Your Ultimate Companion for Seamless Book Management</h2>
         <div class='btn'>
           <button type="button" id='btn1'>Subscribe</button>
-          <button type='button' id='btn2'>Free Trial</button>
+          <button type='button' id='btn2'>7-Days Trial</button>
         </div>
        </div>
       </main>

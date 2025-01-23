@@ -36,11 +36,11 @@ body {
 }
 
 #search-bar {
-  border: 0.1px solid rgb(105, 104, 104);
+  
   border-radius: 30px;
   padding: 8px 40px;
-  color: whitesmoke;
-  background: #23272f;
+  color: rgba(246, 239, 239, 0.459);
+  background: #333a45;
   flex-grow: 1;
   max-width: 450px;
   margin: 0 20px;
@@ -66,4 +66,7 @@ body {
 .nav-bar ul li:hover a,
 .nav-bar ul li.active a {
   color: #7cf03d;
+  padding: 8px 10px;
+  border-radius: 30px;
+  background-color: #333a45;
 }

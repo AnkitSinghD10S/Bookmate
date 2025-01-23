@@ -25,11 +25,18 @@
   
   .footer-right a {
     font-size: 14px;
-    height: 57px;
     text-decoration: none;
-    transition: color 0.3s;
-  }
-  
-  .footer-right a:hover {
+    transition: transform 0.3s, background-color 0.3s, color 0.3s;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.footer-right a:hover {
     color: #7cf03d;
-  }
+    padding: 8px 10px;
+    border-radius: 30px;
+    background-color: #333a45;
+}
