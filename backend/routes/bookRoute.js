@@ -88,4 +88,18 @@ router.get("/:bookname", async (req, res) => {
     }
 });
 
+router.get("/", async (req, res) => {
+    try {
+        const  books = await Book.find({});
+        if(!books){
+            res.status(404).json({error:"no books found"});
+        }
+
+        res.status(200).json({books});
+        
+    } catch (error) {
+        console.log("error in getting the books",error);
+    }
+})
+
 export default router;
