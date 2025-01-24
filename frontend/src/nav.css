@@ -4,6 +4,7 @@ body {
   padding-top: 80px; /* Account for the height of the nav-bar */
 }
 
+
 .nav-bar {
   position: fixed;
   top: 0;
@@ -36,7 +37,6 @@ body {
 }
 
 #search-bar {
-  
   border-radius: 30px;
   padding: 8px 40px;
   color: rgba(246, 239, 239, 0.459);
@@ -46,7 +46,12 @@ body {
   margin: 0 20px;
   z-index: 10; /* Ensure it stays above other content */
 }
-
+#search-bar:hover{
+  padding: 8px 8px;
+    border-radius: 30px;
+  transition: 0.3s;
+  transform: scale(1.1);
+}
 .nav-bar ul {
   display: flex;
   gap: 30px;
