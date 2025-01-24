@@ -5,7 +5,7 @@ function Footer() {
         <div className="footer-left">
           <p>© 2024 BooꓘMate. All Rights Reserved.</p>
         </div>
-        <div className="footer-right">
+        <div className="footer-mid">
           <a href="#"><i class="fa-brands fa-facebook"></i></a>
           <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
           <a href="#"><i class="fa-brands fa-instagram"></i></a>

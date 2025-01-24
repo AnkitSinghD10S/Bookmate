@@ -24,16 +24,16 @@ function Nav() {
         <img src="logo1.png" alt="Logo" id="logo" />
         <h1 class="text-gray-500">v1</h1>
       </div>
-      <input
-        type="text"
-        id="search-bar"
-        placeholder="🔍 Search your books..."
-      />
-      <ul>
+      <div class='nav-mid'>
+      <input type="text" id="search-bar" placeholder="🔍 Search your books..."/>
+      </div>
+      
+      <div class='nav-right'>
         <li><a href="#">Home</a></li>
         <li><a href="#">Contact</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Log in</a></li>
+      </div>
     </nav>
   );
 }
