@@ -22,7 +22,7 @@ function Nav() {
     <nav className="nav-bar">
       <div className="nav-left">
         <img src="logo1.png" alt="Logo" id="logo" />
-        <h1 class="text-gray-500">Library</h1>
+        <h1 class="text-gray-500">v1</h1>
       </div>
       <div class='nav-mid'>
       <input type="text" id="search-bar" placeholder="🔍 Search your books..."/>
@@ -31,8 +31,9 @@ function Nav() {
       <div class='nav-right'>
         <li><a href="#">Home</a></li>
         <li><a href="#">Contact</a></li>
-        <li><a href="#">About</a></li>
-      </ul>
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Log in</a></li>
+      </div>
     </nav>
   );
 }
