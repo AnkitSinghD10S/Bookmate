@@ -28,7 +28,7 @@
   
 }
 .footer-mid a:hover{
-  color: greenyellow;
+  color: #7cf03d;
   background-color: #333a45;
   border-radius: 30px;
   
@@ -54,7 +54,7 @@
 }
 
 .footer-right a:hover {
-  color: greenyellow;
+  color: #7cf03d;
   border-radius: 30px;
   background-color: #333a45;
   transition: 0.3s;
