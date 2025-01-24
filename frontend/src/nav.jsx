@@ -22,7 +22,7 @@ function Nav() {
     <nav className="nav-bar">
       <div className="nav-left">
         <img src="logo1.png" alt="Logo" id="logo" />
-        <h1 class="text-gray-500">v1</h1>
+        <h1 class="text-gray-500">Library</h1>
       </div>
       <input
         type="text"
@@ -32,7 +32,8 @@ function Nav() {
       <ul>
         <li><a href="#">Home</a></li>
         <li><a href="#">Contact</a></li>
-        <li><a href="#">About</a></li>
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Log in</a></li>
       </ul>
     </nav>
   );
