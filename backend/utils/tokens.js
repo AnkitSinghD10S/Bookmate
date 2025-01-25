@@ -11,7 +11,7 @@ const tokenGenerator = (userId, res)=>{
         secure:process.env.NODE_ENV === 'production'
     })
     console.log(token);
-    
+    return token;
 }
 
 export default tokenGenerator;

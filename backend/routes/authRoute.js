@@ -2,6 +2,7 @@ import express from "express";
 import { User } from "../models/userModel.js";
 import tokenGenerator from "../utils/tokens.js";
 import bcrypt from 'bcryptjs';
+import verifyJWT from '../verifyJWT.js'
 const router = express.Router();
 
 router.post("/signup", async (req, res) => {
@@ -49,13 +50,25 @@ router.post("/login",async (req, res) => {
     const validPassword = await bcrypt.compare(password, user?.password || "");
 
     if (validPassword) {
-        tokenGenerator(user._id, res);
-        res.status(200).json({ message: "login successfull" });
+        const accessToken = tokenGenerator(user._id, res);
+        res.status(200).
+        cookie("accessToken", accessToken, { httpOnly: true, secure: true }).
+        json({ message: "login successfull" });
     } else {
         res.status(400).json({ error: "input details does not match" });
     }
 });
 
-router.get("/logout", (req, res) => {});
+router.get("/logout",verifyJWT, async(req, res) => {
+    const user = req.user;
+    if(user){
+        res.status(201).
+        clearCookie("accessToken").
+        json({message:"User Logout Successfully"})
+    }
+    else{
+        return res.status(402).json({message:"Something went wrong during logout User"})
+    }
+});
 
 export default router;
