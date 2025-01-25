@@ -10,7 +10,6 @@ const tokenGenerator = (userId, res)=>{
         sameSite:'strict',
         secure:process.env.NODE_ENV === 'production'
     })
-    console.log(token);
     return token;
 }
 

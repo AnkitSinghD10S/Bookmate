@@ -12,6 +12,11 @@ router.post("/signup", async (req, res) => {
             res.status(400).json({ message: "All fields are required" });
         }
 
+        const userOld = await User.findOne({email:email});
+        if(userOld){
+            res.status(400).json({message:"user alreay exists"});
+        }
+
         if (password.length < 8) {
             res.status(400).json({
                 message: "password length should be  8 or greater",
@@ -42,13 +47,11 @@ router.post("/login",async (req, res) => {
     if (!email || !password) {
         res.status(400).json({ error: "all fields are reqired" });
     }
-    const user = User.findOne({ email: email });
+    const user =await User.findOne({email});
     if (!user) {
         res.status(404).json({ error: "user not found" });
     }
-
     const validPassword = await bcrypt.compare(password, user?.password || "");
-
     if (validPassword) {
         const accessToken = tokenGenerator(user._id, res);
         res.status(200).
