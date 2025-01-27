@@ -6,6 +6,7 @@
   z-index: 1000;
   padding: 10px 20px;
   background-color: #23272f; /* Use # for hex colors */
+  color: whitesmoke;
   display: flex;
   justify-content: space-between;
   align-items: center;
