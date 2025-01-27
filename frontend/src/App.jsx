@@ -15,7 +15,8 @@ function App() {
     <Main/>
     </div>
 
-    <div className='footer'>   
+  
+    <div className='footer-content'>   
       <Footer />
     </div>
     </>
