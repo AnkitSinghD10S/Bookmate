@@ -7,16 +7,15 @@ import Footer from './footer';
 function App() {
   return (
     <>
-    <div className='mb-20'>
+    <div className='nav'>
       <Nav />
     </div>
 
-    <div className='mb-20 px-5'>
+    <div className='main-content'>
     <Main/>
     </div>
-    
 
-    <div>   
+    <div className='footer'>   
       <Footer />
     </div>
     </>
