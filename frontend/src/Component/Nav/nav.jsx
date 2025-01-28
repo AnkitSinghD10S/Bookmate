@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './nav.css';
-
+import { IoSearch } from "react-icons/io5";
 function Nav() {
   useEffect(() => {  
     const handleScroll = () => {
@@ -22,11 +22,15 @@ function Nav() {
     <nav className="nav-bar">
       <div className="nav-left">
         <img src="logo1.png" alt="Logo" id="logo" />
-        <h1 class="text-gray-500">v1</h1>
+        <h1 className="text-gray-500">v1</h1>
       </div>
-      <div class='nav-mid'>
-      <input type="text" id="search-bar" placeholder="🔍 Search your books..."/>
+      <div className='nav-mid'>
+          <input type="text" id="search-bar" placeholder="Search your books..." />
+          <div className='search-icon'>
+             <IoSearch />
+          </div>
       </div>
+
       
       <div class='nav-right'>
         <li><a href="#">Home</a></li>

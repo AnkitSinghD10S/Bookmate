@@ -1,6 +1,8 @@
 main{
   margin:0;
   padding: 0;
+  color: whitesmoke;
+ background-color: #23272f;
 }
 .title {
   display: flex;
@@ -52,5 +54,15 @@ button:hover{
   color: black;
   font-weight: 300px;
   background: #58c4dc;
-
 }
+.books-data{
+  width: 100%;
+  min-height: 50vh;
+  background: #191b21;
+  padding: 20px;
+}
+
+.books{
+  width: 100%;
+}
+
