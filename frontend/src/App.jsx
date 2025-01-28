@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import './App.css';
-import Nav from './nav';
-import Main from './content1';
-import Footer from './footer';
+import Nav from './Component/Nav/nav';
+import Main from './Component/MainContent/content1';
+import Footer from './Component/Footer/footer';
+// import About from './Component/About/About';
+
 
 function App() {
   return (
@@ -19,9 +21,11 @@ function App() {
     <div>   
       <Footer />
     </div>
+    
+
     </>
     
   );
-}
+};
 
 export default App;
