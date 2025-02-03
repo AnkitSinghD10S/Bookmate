@@ -11,13 +11,11 @@ function Nav() {
         nav.classList.remove('scrolled');
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
   return (
     <nav className="nav-bar">
       <div className="nav-left">
@@ -32,7 +30,7 @@ function Nav() {
       </div>
 
       
-      <div class='nav-right'>
+      <div className='nav-right'>
         <li><a href="#">Home</a></li>
         <li><a href="#">Contact</a></li>
         <li><a href="/About">About us</a></li>
