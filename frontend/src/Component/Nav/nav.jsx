@@ -35,8 +35,8 @@ function Nav() {
       <div class='nav-right'>
         <li><a href="#">Home</a></li>
         <li><a href="#">Contact</a></li>
-        <li><a href="/About">About us</a></li>
-        <li><a href="/Login">Log in</a></li>
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Log in</a></li>
       </div>
     </nav>
   );
