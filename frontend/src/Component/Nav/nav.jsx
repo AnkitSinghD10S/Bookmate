@@ -41,10 +41,10 @@ function Nav() {
 
 
       <div className='nav-right'>
-        <li><a href={pages.home}>Home</a></li>
-        <li><a href={pages.contact}>Contact</a></li>
-        <li><a href={pages.about}>About us</a></li>
-        <li><a href={pages.login}>Log in</a></li>
+        <li><a href='./'>Home</a></li>
+        <li><a href='#'>Contact</a></li>
+        <li><a href="#">About us</a></li>
+        <li><a href="#">Log in</a></li>
       </div>
     </nav>
   );
