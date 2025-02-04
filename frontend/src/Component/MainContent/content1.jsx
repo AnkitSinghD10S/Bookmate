@@ -8,8 +8,7 @@ function Main(){
     return(
       <>
       <main>
-       <div className='title'>
-        <div className="headlogo">
+
           <img src="logo1.png" alt="Logo"/>
         </div>
         <h1 id='heading-name'>BooꓘMate</h1>
@@ -22,16 +21,6 @@ function Main(){
 
        <div className='books-data'>
         <h1>Books..</h1>
-        {books.length > 0 ? (
-              books.map((book, index) => (
-                <div key={index} className='book-item'>
-                  <h2>{book.bookName}</h2>
-                  <p>Author: {book.bookAuthorName}</p>
-                </div>
-              ))
-            ) : (
-              <p>No books available</p>
-            )}
        </div>
 
 
