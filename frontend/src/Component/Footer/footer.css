@@ -1,9 +1,10 @@
 .footer {
+  color: whitesmoke;
   display: flex;
   align-items: center;
   padding: 10px 20px;
   background-color: #16181d;
-  border-radius: 4px;
+
   width: 100%;
   bottom: 0;
   z-index: 1000;

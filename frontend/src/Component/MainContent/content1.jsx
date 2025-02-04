@@ -3,7 +3,6 @@ function Main(){
     return(
       <>
       <main>
-      
        <div class='title'>
         <div class="headlogo">
           <img src="logo1.png" alt="Logo"/>
@@ -15,6 +14,19 @@ function Main(){
           <button type='button' id='btn2'>7-Days Trial</button>
         </div>
        </div>
+
+       <div className='books-data'>
+        <h1>Books..</h1>
+        
+         <div className='books'>
+           {/* books data */}
+
+         </div>
+
+       </div>
+
+
+
       </main>
       </>
     );
