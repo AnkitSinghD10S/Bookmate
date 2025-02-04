@@ -33,6 +33,7 @@ function Nav() {
 
       
       <div class='nav-right'>
+        
         <li><a href="#">Home</a></li>
         <li><a href="#">Contact</a></li>
         <li><a href="/About">About us</a></li>
