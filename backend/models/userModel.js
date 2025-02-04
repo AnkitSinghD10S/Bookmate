@@ -15,9 +15,6 @@ const userSchema = new mongoose.Schema({
         minLength:8,
         required:true
     },
-    avatar:{
-        type:String,
-    },
     savedBook:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Book'
