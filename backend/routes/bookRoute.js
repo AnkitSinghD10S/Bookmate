@@ -2,13 +2,15 @@ import express from "express";
 import { Book } from "../models/bookModel.js";
 const router = express.Router();
 
+
+
 router.post("/new", async (req, res) => {
     try {
         const { bookName, bookAuthorName, publishedYear, bookImage } = req.body;
         if (!bookName || !bookAuthorName || !publishedYear) {
             return res
-                .status(400)
-                .json({ error: "Please fill all the fields" });
+            .status(400)
+            .json({ error: "Please fill all the fields" });
         }
         const book = new Book({
             bookName,
@@ -33,18 +35,18 @@ router.post("/update/:bookname", async (req, res) => {
         const { bookName, bookAuthorName, publishedYear, bookImage } = req.body;
         if (!bookName || !bookAuthorName || !publishedYear) {
             return res
-                .status(400)
-                .json({ error: "Please fill all the fields" });
+            .status(400)
+            .json({ error: "Please fill all the fields" });
         }
         const book = await Book.findOne({ bookName: req.params.bookname });
-
+        
         if (book) {
             book.bookName = bookName;
             book.bookAuthorName = bookAuthorName;
             book.publishedYear = publishedYear;
             book.bookImage = bookImage;
             await book.save();
-
+            
             res.status(200).json({
                 name: book.bookName,
                 authorName: book.bookAuthorName,
@@ -94,8 +96,7 @@ router.get("/", async (req, res) => {
         if(!books){
             res.status(404).json({error:"no books found"});
         }
-
-        res.status(200).json({books});
+        res.status(200).json(books);
         
     } catch (error) {
         console.log("error in getting the books",error);

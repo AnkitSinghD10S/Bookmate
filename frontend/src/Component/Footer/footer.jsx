@@ -6,10 +6,10 @@ function Footer() {
           <p>© 2024 BooꓘMate. All Rights Reserved.</p>
         </div>
         <div className="footer-mid">
-          <a href="#"><i class="fa-brands fa-facebook"></i></a>
-          <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
-          <a href="#"><i class="fa-brands fa-instagram"></i></a>
-          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#"><i className="fa-brands fa-facebook"></i></a>
+          <a href="#"><i className="fa-brands fa-whatsapp"></i></a>
+          <a href="#"><i className="fa-brands fa-instagram"></i></a>
+          <a href="#"><i className="fa-brands fa-x-twitter"></i></a>
         </div>
         <div className="footer-right">
           <a href="#">Privacy Policy</a>
