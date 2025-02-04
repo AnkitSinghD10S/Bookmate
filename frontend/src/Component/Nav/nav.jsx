@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './nav.css';
 import { IoSearch } from "react-icons/io5";
+import { Link } from 'react-router';
 function Nav() {
   useEffect(() => {  
     const handleScroll = () => {
@@ -32,12 +33,12 @@ function Nav() {
       </div>
 
       
-      <div class='nav-right'>
+      <div className='nav-right'>
       
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Contact</a></li>
-        <li><a href="#">About us</a></li>
-        <li><a href="/login">Log in</a></li>
+        <li><Link to="/">Home</Link></li>
+        <li><Link to="#">Contact</Link></li>
+        <li><Link to="#">About us</Link></li>
+        <li><Link to="/login">Log in</Link></li>
       </div>
     </nav>
   );
