@@ -1,5 +1,6 @@
 import  { useEffect } from 'react';
 import './nav.css';
+
 import { IoSearch } from "react-icons/io5";
 const logo = {
   name:'BookMate',
@@ -38,10 +39,10 @@ function Nav() {
           </div>
       </div>
 
-      
+
       <div className='nav-right'>
-        <li><a href="/">Home</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href='./'>Home</a></li>
+        <li><a href='#'>Contact</a></li>
         <li><a href="#">About us</a></li>
         <li><a href="/login">Log in</a></li>
       </div>
