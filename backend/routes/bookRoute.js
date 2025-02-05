@@ -95,7 +95,7 @@ router.get("/", async (req, res) => {
             res.status(404).json({error:"no books found"});
         }
 
-        res.status(200).json({books});
+        res.status(200).json(books);
         
     } catch (error) {
         console.log("error in getting the books",error);

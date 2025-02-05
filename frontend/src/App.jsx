@@ -2,7 +2,6 @@ import "./App.css";
 import Nav from "./Component/Nav/Nav";
 import Footer from "./Component/Footer/footer";
 import { Outlet } from "react-router";
-// import About from './Component/About/About';
 
 function App() {
     return (

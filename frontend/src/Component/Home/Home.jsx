@@ -1,5 +1,8 @@
+import useGetBooks from '../../../utils/useGetBooks';
 import './content1.css';
 function Home(){
+  const {books} = useGetBooks();  
+
     return(
       <>
       <div className='main'>
@@ -18,9 +21,19 @@ function Home(){
        <div className='books-data'>
         <h1>Books..</h1>
         
-         <div className='books'>
-           {/* books data */}
-
+         <div className='books flex flex-row flex-wrap bg-gray-500'>
+          {
+            books.length>0 ? (
+                books.map((book,index)=>(
+                  <div key={index} className='book m-4'>
+                    <div>{index}</div>
+                    <h3>{book.bookName}</h3>
+                    <p>{book.bookAuthorName}</p>
+                  </div>
+                ))
+            ):
+            <></>
+          }
          </div>
 
        </div>
