@@ -33,6 +33,7 @@ router.post("/signup", async (req, res) => {
             tokenGenerator(user._id,res);
             await user.save();
             res.status(201).json({
+                _id:user._id,
                 name: user.name,
                 email: user.email,
             });
