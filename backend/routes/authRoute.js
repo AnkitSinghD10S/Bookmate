@@ -57,7 +57,7 @@ router.post("/login",async (req, res) => {
         const accessToken = tokenGenerator(user._id, res);
         res.status(200).
         cookie("accessToken", accessToken, { httpOnly: true, secure: true }).
-        json({ message: "login successfull" });
+        json({name:user.name,email:user.email,_id:user._id});
     } else {
         res.status(400).json({ error: "input details does not match" });
     }

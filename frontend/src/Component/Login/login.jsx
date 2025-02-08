@@ -8,11 +8,11 @@ const Login = () => {
         password: "",
     });
 
-    const login = useLogin();
+    const {login} = useLogin();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await login({ inputs });
+        await login(inputs);
     };
 
     console.log(inputs);

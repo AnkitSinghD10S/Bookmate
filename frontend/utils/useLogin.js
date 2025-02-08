@@ -5,7 +5,7 @@ const useLogin = () => {
             if (!email || !password) {
                 throw new Error("Fill all the fields");
             }
-            const res = fetch("http://localhost:5000/api/auth/login", {
+            const res = await fetch("http://localhost:5000/api/auth/login", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ email, password }),
@@ -15,13 +15,13 @@ const useLogin = () => {
             if (data.error) {
                 throw new Error(data.error);
             }
-
-            localStorage.setItem("user", data);
+            console.log(data);
+            localStorage.setItem("user",JSON.stringify(data));
         } catch (error) {
             console.log(error);
         }
     };
-    login()
+    return {login}
 };
 
 export default useLogin;
