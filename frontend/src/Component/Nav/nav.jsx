@@ -20,15 +20,15 @@ function Nav() {
   }, []);
 
   return (
-    <nav class="nav-bar">
-      <div class="nav-left">
+    <nav className="nav-bar">
+      <div className="nav-left">
         <img src="logo1.png" alt="Logo" id="logo" />
         <h1 className="text-gray-500">v1</h1>
       </div>
-      <div class='nav-mid'>
-        <div class="nav-search">
+      <div className='nav-mid'>
+        <div className="nav-search">
           <input type="text" id="search-bar" placeholder="Search your books..." />
-          <div class='search-icon'>
+          <div className='search-icon'>
              <IoSearch />
           </div>
         </div>
@@ -36,7 +36,7 @@ function Nav() {
       </div>
 
       
-      <div class='nav-right'>
+      <div className='nav-right'>
       
         <li><Link to="/">Home</Link></li>
         <li><Link to="#">Contact</Link></li>

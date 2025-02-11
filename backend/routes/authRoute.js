@@ -8,6 +8,8 @@ const router = express.Router();
 router.post("/signup", async (req, res) => {
     try {
         const { name, email, password } = req.body;
+        console.log(name,email,password);
+        
         if (!name || !email || !password) {
             res.status(400).json({ message: "All fields are required" });
         }
@@ -30,13 +32,11 @@ router.post("/signup", async (req, res) => {
             password: hashedPassword,
         });
         if(user){
-            tokenGenerator(user._id,res);
+            const accessToken= tokenGenerator(user._id,res);
             await user.save();
-            res.status(201).json({
-                _id:user._id,
-                name: user.name,
-                email: user.email,
-            });
+            res.status(200).
+        cookie("accessToken", accessToken, { httpOnly: true, secure: true }).
+        json({name:user.name,email:user.email,_id:user._id});
         }
     } catch (error) {
         console.log("error in signup", error);

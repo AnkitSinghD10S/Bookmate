@@ -1,8 +1,9 @@
-import useEffect from "react";
-const useSignup = ({ name, email, password }) => {
-    const singup = async () => {
+const useSignup = () => {
+    const singup = async ({ name, email, password }) => {
+        console.log(name,email,password);
+        
         try {
-            if (!name || !email || password) {
+            if (!name || !email || !password) {
                 throw new Error("fill all the fields");
             }
             const res = await fetch("http://localhost:5000/api/auth/signup", {
@@ -14,7 +15,7 @@ const useSignup = ({ name, email, password }) => {
             if (data.error) {
                 throw new Error(data.error);
             }
-            localStorage.setItem("user", data);
+            localStorage.setItem("user", JSON.stringify(data));
         } catch (error) {
             console.log(error);
         }

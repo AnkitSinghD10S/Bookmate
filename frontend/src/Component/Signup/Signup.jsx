@@ -1,27 +1,38 @@
-import { useState } from "react";
-import "./login.css";
-import useLogin from "../../../utils/useLogin.js";
+import { useState } from 'react'
 import { Link } from 'react-router-dom'
-const Login = () => {
-    const [inputs, setInputs] = useState({
-        email: "",
-        password: "",
+import './signup.css'
+import useSignup from '../../../utils/useSignup';
+const Signup = () => {
+
+    const [inputs,setInputs] = useState({
+        name:"",
+        email:"",
+        password:"",
     });
 
-    const {login} = useLogin();
+    const {singup} = useSignup();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async(e)=>{
         e.preventDefault();
-        await login(inputs);
-    };
+        await singup(inputs);
+    }
 
-    console.log(inputs);
-
-    return (
-        <div className="container">
+  return (
+    <div className="container">
             <form className="form">
-                <h2>Login</h2>
+                <h2>Signup</h2>
 
+                <label htmlFor="name">name:</label>
+                <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Enter your name"
+                    value={inputs.name}
+                    onChange={(e) =>
+                        setInputs({ ...inputs, name:e.target.value })
+                    }
+                />
                 <label htmlFor="email">email:</label>
                 <input
                     type="text"
@@ -54,13 +65,13 @@ const Login = () => {
                     <h2>OR</h2>
                 </div>
 
-                <h5>Don't have an account?</h5>
-                <Link to="/signup" className="btn1">
-                    Signup
+                <h5>Already have an account?</h5>
+                <Link to="/login" className="btn1">
+                    Login
                 </Link>
             </form>
         </div>
-    );
-};
+  )
+}
 
-export default Login;
+export default Signup

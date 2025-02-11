@@ -5,6 +5,7 @@ import "./index.css";
 import App from "./App.jsx";
 import Login from "./Component/Login/login.jsx";
 import Home from "./Component/Home/Home.jsx";
+import Signup from "./Component/Signup/Signup.jsx";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
@@ -13,6 +14,7 @@ createRoot(document.getElementById("root")).render(
                 <Route path="/" element={<App />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<Signup />} />
                 </Route>
             </Routes>
         </BrowserRouter>
