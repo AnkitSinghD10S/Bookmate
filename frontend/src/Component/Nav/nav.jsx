@@ -25,6 +25,7 @@ function Nav() {
         <img src="logo1.png" alt="Logo" id="logo" />
         <h1 className="text-gray-500">v1</h1>
       </div>
+      
       <div className='nav-mid'>
         <div className="nav-search">
           <input type="text" id="search-bar" placeholder="Search your books..." />

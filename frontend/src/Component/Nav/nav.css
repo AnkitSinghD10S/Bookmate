@@ -32,7 +32,6 @@
 }
 
 .nav-mid {
-  border:none;
   width: 45%;
   background: #333a45;
   border-radius: 40px;
@@ -56,6 +55,10 @@
   background: #333a45;
   width: 80%;
   font-size: 16px;
+}
+.nav-search input{
+  padding:5px;
+
 }
 .search-icon{
  padding-bottom: 6px;
