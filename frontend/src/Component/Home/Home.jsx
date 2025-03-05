@@ -1,5 +1,7 @@
 import useGetBooks from '../../../utils/useGetBooks';
 import './content1.css';
+import Card from '../Card/card';
+import { Link } from 'react-router-dom';
 function Home(){
   const {books} = useGetBooks();  
 
@@ -11,15 +13,16 @@ function Home(){
           <img src="logo1.png" alt="Logo"/>
         </div>
         <h1 id='heading-name'>BooꓘMate</h1>
-        <h2 id='abouttitle'>Your Ultimate Companion for Seamless Book Management</h2>
+        <h2 id='abouttitle'>Naye Bharat Ka Naya BookMate</h2>
         <div className='bt'>
           <button type="button" id='btn1'>Subscribe</button>
-          <button type='button' id='btn2'>7-Days Trial</button>
+          <button type='button' id='btn2'>5-Days Trial</button>
         </div>
        </div>
 
        <div className='books-data'>
         <h1>Books..</h1>
+        <Card/>
         
          <div className='books flex flex-row flex-wrap bg-gray-500'>
           {
