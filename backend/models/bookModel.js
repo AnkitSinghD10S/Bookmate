@@ -15,12 +15,12 @@ const bookSchema = new mongoose.Schema({
     },
     User:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'Admin'
+        ref:'User',
+        default:null
     },
     bookImage:{
         type:String,
         required:true,
-        default:""
     }
 },{
     timestamps:true

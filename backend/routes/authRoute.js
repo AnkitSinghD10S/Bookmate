@@ -1,47 +1,58 @@
 import express from "express";
 import { User } from "../models/userModel.js";
-import tokenGenerator from "../utils/tokens.js";
-import bcrypt from 'bcryptjs';
 import verifyJWT from '../verifyJWT.js'
+import { upload } from "../multer.js";
+import { uploadCloudinary } from "../cloudinary.js";
 const router = express.Router();
 
-router.post("/signup", async (req, res) => {
+//sign up new User (As reader);
+router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (req, res) => {
     try {
-        const { name, email, password } = req.body;
-        console.log(name,email,password);
-        
+        const { name, email, password, isAdmin } = req.body;
         if (!name || !email || !password) {
-            res.status(400).json({ message: "All fields are required" });
+            return res.status(400).json({ message: "All fields are required" });
+        }
+        const userOld = await User.findOne({ email: email });
+        if (userOld) {
+            return res.status(400).json({ message: "User already exists" });
         }
 
-        const userOld = await User.findOne({email:email});
-        if(userOld){
-            res.status(400).json({message:"user alreay exists"});
+        let avatar = null;
+        if (req.files?.avatar && Array.isArray(req.files.avatar) && req.files.avatar[0]) {
+            try {
+                const avatarUploadResult = await uploadCloudinary(req.files.avatar[0].path);
+                if (!avatarUploadResult?.url) {
+                    return res.status(500).json({ message: "Failed to upload avatar." });
+                }
+                avatar = avatarUploadResult.url;
+            } catch (uploadError) {
+                console.error("Avatar Upload Error:", uploadError);
+                return res.status(500).json({ message: "Error uploading avatar." });
+            }
         }
 
-        if (password.length < 8) {
-            res.status(400).json({
-                message: "password length should be  8 or greater",
-            });
-        }
-        const salt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(password, salt);
         const user = new User({
             name,
             email,
-            password: hashedPassword,
+            password,
+            isAdmin,
+            avatar
         });
-        if(user){
-            const accessToken= tokenGenerator(user._id,res);
-            await user.save();
-            res.status(200).
-        cookie("accessToken", accessToken, { httpOnly: true, secure: true }).
-        json({name:user.name,email:user.email,_id:user._id});
+
+        const savedUser = await user.save();
+        console.log(savedUser);
+
+        if (!savedUser) {
+            return res.status(500).json({ message: "Something went wrong during user creation" });
         }
+
+        res.status(201).json({ message: "User created successfully" });
     } catch (error) {
-        console.log("error in signup", error);
+        console.error("Error in signup:", error);
+        res.status(500).json({ message: "Server error" });
     }
 });
+
 
 router.post("/login",async (req, res) => {
     const { email, password } = req.body;

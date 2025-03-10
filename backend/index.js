@@ -8,15 +8,17 @@ import cors from 'cors';
 dotenv.config();
 const app= express();
 const MONGOOSE = process.env.MONGOOSE;
-const PORT = process.env.PORT||5000;
+const PORT = process.env.PORT
 
 
 app.use(express.json());
-
+app.use(express.urlencoded({extended:true}))
 app.use(cors());
+app.get('/',(req,res)=>{
+    res.send("Welcome to Bookmate")
+})
 
 app.use('/api/auth', authRouter)
-
 app.use('/api/book',bookRouter)
 
 try {
