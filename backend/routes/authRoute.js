@@ -59,16 +59,17 @@ router.post("/login",async (req, res) => {
     if (!email || !password) {
         res.status(400).json({ error: "all fields are reqired" });
     }
-    const user =await User.findOne({email});
+    let user =await User.findOne({email});
     if (!user) {
         res.status(404).json({ error: "user not found" });
     }
-    const validPassword = await bcrypt.compare(password, user?.password || "");
+    const validPassword = await user.isPasswordCorrect(password);
     if (validPassword) {
-        const accessToken = tokenGenerator(user._id, res);
+        const accessToken = await user.generateAccessToken();
+        user = await User.findById(user._id).select("-password");
         res.status(200).
         cookie("accessToken", accessToken, { httpOnly: true, secure: true }).
-        json({name:user.name,email:user.email,_id:user._id});
+        json({message:"Login Successfully",user});
     } else {
         res.status(400).json({ error: "input details does not match" });
     }

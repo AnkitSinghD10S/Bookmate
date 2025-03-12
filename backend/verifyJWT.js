@@ -6,11 +6,15 @@ const verifyJWT = async (req, res, next) => {
         if (!token) {
             return res.status(401).json({ message: "Unauthorized: No token provided" });
         }
+        console.log(token)
         const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-        const user = await User.findById(decodedToken.id).select("-Password");
+        console.log(decodedToken)
+        const user = await User.findById(decodedToken.id).select("-Password -refreshToken");
+        console.log(user)
         if (!user) {
             return res.status(401).json({ message: "Unauthorized: Invalid token" });
         }
+
         req.user = user;
         next();
     } catch (error) {
