@@ -47,10 +47,12 @@ router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "b
         });
 
         await book.save();
-
+        await user.uploadedBook.push(book);
+        await user.save();
         return res.status(201).json({
             message: "Book uploaded successfully",
             book,
+            user
         });
 
     } catch (error) {
@@ -59,36 +61,52 @@ router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "b
     }
 });
 
-router.post("/update/:bookname", async (req, res) => {
-    try {
-        const { bookName, bookAuthorName, publishedYear, bookImage } = req.body;
-        if (!bookName || !bookAuthorName || !publishedYear) {
-            return res
-                .status(400)
-                .json({ error: "Please fill all the fields" });
-        }
-        const book = await Book.findOne({ bookName: req.params.bookname });
+router.patch("/update/:id", upload.fields([{ name: "bookImage", maxCount: 1 }, { name: "bookLink", maxCount: 1 }]),verifyJWT, async (req, res) => {
+        try {
+            const bookId = req.params.id;
+            const { bookName, bookAuthorName, publishedYear } = req.body;
 
-        if (book) {
+            if (!bookName || !bookAuthorName || !publishedYear) {
+                return res.status(400).json({ error: "Please fill all the fields" });
+            }
+
+            const book = await Book.findById(bookId);
+            if (!book) {
+                return res.status(404).json({ error: "Book not found" });
+            }
+
+            if (req.files?.bookImage) {
+                const ImageUploadResult = await uploadCloudinary(req.files.bookImage[0].path);
+                if (!ImageUploadResult?.secure_url) {
+                    return res.status(500).json({ message: "Failed to upload book image." });
+                }
+                book.bookImage = ImageUploadResult.secure_url;
+            }
+
+            if (req.files?.bookLink) {
+                const bookUploadResult = await uploadCloudinary(req.files.bookLink[0].path);
+                if (!bookUploadResult?.secure_url) {
+                    return res.status(500).json({ message: "Failed to upload book file." });
+                }
+                book.bookLink = bookUploadResult.secure_url;
+            }
             book.bookName = bookName;
             book.bookAuthorName = bookAuthorName;
             book.publishedYear = publishedYear;
-            book.bookImage = bookImage;
             await book.save();
-
-            res.status(200).json({
-                name: book.bookName,
-                authorName: book.bookAuthorName,
-                publishedYear: book.publishedYear,
-                bookImage: book.bookImage,
+            book = await Book.findById(book._id);
+            return res.status(200).json({
+                message: "Book updated successfully",
+                book
             });
-        } else {
-            res.status(404).json({ error: "Book not found" });
+
+        } catch (error) {
+            console.error("Error in updating the book:", error);
+            return res.status(500).json({ message: "Internal server error" });
         }
-    } catch (error) {
-        console.log("error in updating the book", error);
     }
-});
+);
+
 
 router.delete("/delete/:bookname", async (req, res) => {
     try {
