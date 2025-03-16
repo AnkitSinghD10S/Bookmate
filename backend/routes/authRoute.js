@@ -2,6 +2,7 @@ import express from "express";
 import { User } from "../models/userModel.js";
 import verifyJWT from '../verifyJWT.js'
 import { upload } from "../multer.js";
+import { Book } from "../models/bookModel.js";
 import { uploadCloudinary } from "../cloudinary.js";
 const router = express.Router();
 
@@ -54,24 +55,32 @@ router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (re
 });
 
 
-router.post("/login",async (req, res) => {
+router.post("/login", async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
-        res.status(400).json({ error: "all fields are reqired" });
+        return res.status(400).json({ error: "All fields are required" });
     }
-    let user =await User.findOne({email});
+
+    let user = await User.findOne({ email }).populate({
+        path: "savedBook",
+        select: "bookName bookAuthorName publishedYear bookImage bookLink"
+    })
+    
+    
     if (!user) {
-        res.status(404).json({ error: "user not found" });
+        return res.status(404).json({ error: "User not found" });
     }
+
     const validPassword = await user.isPasswordCorrect(password);
     if (validPassword) {
         const accessToken = await user.generateAccessToken();
         user = await User.findById(user._id).select("-password");
-        res.status(200).
-        cookie("accessToken", accessToken, { httpOnly: true, secure: true }).
-        json({message:"Login Successfully",user});
+        return res
+            .status(200)
+            .cookie("accessToken", accessToken, { httpOnly: true, secure: true })
+            .json({ message: "Login Successfully", user });
     } else {
-        res.status(400).json({ error: "input details does not match" });
+        return res.status(400).json({ error: "Input details do not match" });
     }
 });
 
