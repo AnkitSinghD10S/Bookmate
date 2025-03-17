@@ -2,11 +2,9 @@ import express from "express";
 import { User } from "../models/userModel.js";
 import verifyJWT from '../verifyJWT.js'
 import { upload } from "../multer.js";
-import { Book } from "../models/bookModel.js";
 import { uploadCloudinary } from "../cloudinary.js";
 const router = express.Router();
 
-//sign up new User (As reader);
 router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (req, res) => {
     try {
         const { name, email, password, isAdmin } = req.body;
@@ -54,7 +52,6 @@ router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (re
     }
 });
 
-
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -96,4 +93,40 @@ router.get("/logout",verifyJWT, async(req, res) => {
     }
 });
 
+router.patch("/updateDetails", verifyJWT, async (req, res) => {
+    try {
+        const user = req.user;
+        const { name, email } = req.body;
+        const updatedDetails = {};
+
+        if (name) updatedDetails.name = name;
+        if (email) updatedDetails.email = email;
+        let avatar = null;
+
+        if (req.files?.avatar && Array.isArray(req.files.avatar) && req.files.avatar[0]) {
+            try {
+                const avatarUploadResult = await uploadCloudinary(req.files.avatar[0].path);
+                if (!avatarUploadResult?.url) {
+                    return res.status(500).json({ message: "Failed to upload avatar." });
+                }
+                avatar = avatarUploadResult.url;
+            } catch (uploadError) {
+                console.error("Avatar Upload Error:", uploadError);
+                return res.status(500).json({ message: "Error uploading avatar." });
+            }
+        }
+
+        if (avatar) updatedDetails.avatar = avatar;
+        const updatedUser = await User.findByIdAndUpdate(user.id, updatedDetails, { new: true });
+        
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        res.status(200).json({ message: "User details updated successfully.", user: updatedUser });
+    } catch (error) {
+        console.error("Update Error:", error);
+        return res.status(500).json({ message: "Something went wrong while updating user details." });
+    }
+});
 export default router;
