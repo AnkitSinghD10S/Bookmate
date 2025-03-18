@@ -8,7 +8,6 @@ function Home() {
         <>
             <div className="bg-gray-800 text-white min-h-screen">
 
-                {/* Header Section */}
                 <div className="flex flex-col items-center justify-center text-center h-[500px] w-full">
                     <div className="flex justify-center">
                         <img src="logo1.png" alt="Logo" className="h-40 w-40" />
@@ -22,7 +21,6 @@ function Home() {
                     </div>
                 </div>
 
-                {/* Books Section */}
                 <div className="bg-gray-900 p-8">
                     <h1 className="text-4xl font-bold text-center mb-8">Books..</h1>
                     <Card />

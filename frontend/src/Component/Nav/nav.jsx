@@ -22,13 +22,11 @@ function Nav() {
     return (
         <nav className="nav-bar fixed top-0 left-0 w-full z-50 bg-gray-900 text-white px-6 py-4 flex justify-between items-center transition-shadow duration-300">
             
-            {/* Left Section */}
             <div className="flex items-center gap-4">
                 <img src="logo1.png" alt="Logo" className="h-14 w-14" />
                 <h1 className="text-gray-400 text-lg">v1</h1>
             </div>
             
-            {/* Search Section */}
             <div className="flex items-center bg-gray-700 rounded-full px-4 py-2 w-1/3">
                 <input 
                     type="text" 
@@ -38,7 +36,6 @@ function Nav() {
                 <IoSearch className="text-gray-400 text-xl" />
             </div>
 
-            {/* Right Section */}
             <ul className="flex items-center gap-6">
                 <li>
                     <Link to="/" className="text-gray-300 hover:text-green-400 transition">Home</Link>
