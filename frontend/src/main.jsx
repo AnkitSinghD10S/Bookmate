@@ -7,6 +7,7 @@ import Login from "./Component/Login/login.jsx";
 import Home from "./Component/Home/Home.jsx";
 import Signup from "./Component/Signup/Signup.jsx";
 import UploadBook from "./Component/uploadBook/uploadBook.jsx";
+import About from "./Component/About/About.jsx";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
@@ -17,6 +18,7 @@ createRoot(document.getElementById("root")).render(
                     <Route path="/login" element={<Login />} />
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/uploadBook" element={<UploadBook />} />
+                    <Route path="/About" element={<About />} />
                 </Route>
             </Routes>
         </BrowserRouter>
