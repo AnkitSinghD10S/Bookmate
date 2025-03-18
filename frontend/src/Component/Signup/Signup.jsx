@@ -68,8 +68,7 @@ const Signup = () => {
                     onChange={(e) => setInputs({ ...inputs, avatar: e.target.files[0] })}
                     className="w-full px-4 py-2 mb-4 border rounded-lg cursor-pointer"
                 />
-
-                <label className="block text-gray-600 mb-1">Admin:</label>
+                <label className="block text-gray-600 mb-1">Buyer :</label>
                 <div className="flex items-center gap-4 mb-6">
                     <div className="flex items-center">
                         <input

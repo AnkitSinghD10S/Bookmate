@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (req, res) => {
     try {
-        const { name, email, password, isAdmin } = req.body;
+        const { name, email, password, isBuyer } = req.body;
         if (!name || !email || !password) {
             return res.status(400).json({ message: "All fields are required" });
         }
@@ -34,7 +34,7 @@ router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (re
             name,
             email,
             password,
-            isAdmin,
+            isBuyer,
             avatar
         });
 

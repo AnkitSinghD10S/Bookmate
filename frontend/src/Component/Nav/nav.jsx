@@ -49,6 +49,9 @@ function Nav() {
                 <li>
                     <Link to="/login" className="text-gray-300 hover:text-green-400 transition">Log in</Link>
                 </li>
+                <li>
+                    <Link to="/uploadBook" className="text-gray-300 hover:text-green-400 transition">Upload Book</Link>
+                </li>
             </ul>
 
         </nav>

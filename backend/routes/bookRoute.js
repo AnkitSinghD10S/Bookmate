@@ -10,7 +10,7 @@ const router = express.Router();
 router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "bookImage", maxCount: 1 }]), verifyJWT, async (req, res) => {
     try {
         let user = req.user;
-        if (!user.isAdmin) {
+        if (!user.isBuyer) {
             return res.status(401).json({message:"Unauthorized: Only admins can upload books"});
         }
 
@@ -65,7 +65,7 @@ router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "b
 router.patch("/update/:id", upload.fields([{ name: "bookImage", maxCount: 1 }, { name: "bookLink", maxCount: 1 },]),verifyJWT,async (req, res) => {
       try {
         const user = req.user;
-        if (!user.isAdmin) {
+        if (!user.isBuyer) {
           return res.status(401).json({ message: "Unauthorized: Only admins can update books" });
         }
   
@@ -115,7 +115,7 @@ router.patch("/update/:id", upload.fields([{ name: "bookImage", maxCount: 1 }, {
   
 router.delete("/delete/:id", verifyJWT, async (req, res) => {
     try {
-        if (!req.user.isAdmin) {
+        if (!req.user.isBuyer) {
             return res.status(403).json({ message: "Unauthorized: Only admins can delete books" });
         }
 
