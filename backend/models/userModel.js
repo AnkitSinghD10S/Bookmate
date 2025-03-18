@@ -3,43 +3,54 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 const userSchema = new mongoose.Schema({
-    name:{
-        type:String,
-        required:true,
-        trim:true
+    name: {
+        type: String,
+        required: true,
+        trim: true
     },
-    email:{
-        type:String,
-        required:true,
-        unique:true,
-        trim:true
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        lowercase: true,
+        trim: true,
+        match: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
     },
-    password:{
-        type:String,
-        required:true
+    password: {
+        type: String,
+        required: true,
+        minlength: [8, 'Password must be at least 8 characters long'],
+        maxlength: 1024,
+        validate: {
+            validator: function (value) {
+                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+                return passwordRegex.test(value);
+            },
+            message: 'Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character',
+        },
     },
-    avatar:{
-        type:String,
-        required:true
+    avatar: {
+        type: String,
+        required: true
     },
-    uploadedBook:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Book'
+    uploadedBook: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book'
     }],
-    savedBook:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'Book'
+    savedBook: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Book'
     }],
-    isAdmin:{
-        type:Boolean,
-        default:false
+    isBuyer: {
+        type: Boolean,
+        default: false
     },
-},{
-    timestamps:true
+}, {
+    timestamps: true
 })
-userSchema.pre('save',async function(next){
-    if(this.isModified('password')){
-        this.password = await bcrypt.hash(this.password,10);
+userSchema.pre('save', async function (next) {
+    if (this.isModified('password')) {
+        this.password = await bcrypt.hash(this.password, 10);
     }
     next();
 })
@@ -62,4 +73,4 @@ userSchema.methods.generateAccessToken = function () {
     );
 };
 
-export const User = mongoose.model('User',userSchema)
+export const User = mongoose.model('User', userSchema)
