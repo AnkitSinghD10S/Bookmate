@@ -1,6 +1,5 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import './signup.css'
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import useSignup from '../../../utils/useSignup';
 
 const Signup = () => {
@@ -20,25 +19,28 @@ const Signup = () => {
     };
 
     return (
-        <div className="container">
-            <form className="form" onSubmit={handleSubmit}>
-                <h2>Signup</h2>
+        <div className="flex justify-center items-center min-h-screen bg-gray-100">
+            
+            <form 
+                className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
+                onSubmit={handleSubmit}
+            >
+                <h2 className="text-2xl font-bold text-gray-700 text-center mb-6">Signup</h2>
 
-                <label htmlFor="name">Name:</label>
+                {/* Name Field */}
+                <label htmlFor="name" className="block text-gray-600 mb-1">Name:</label>
                 <input
                     type="text"
                     id="name"
                     name="name"
                     placeholder="Enter your name"
                     value={inputs.name}
-                    onChange={(e) => {
-                        console.log(e.target)
-                        setInputs({ ...inputs, name: e.target.value })
-                    }
-                    }
+                    onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
+                    className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
 
-                <label htmlFor="email">Email:</label>
+                {/* Email Field */}
+                <label htmlFor="email" className="block text-gray-600 mb-1">Email:</label>
                 <input
                     type="email"
                     id="email"
@@ -46,9 +48,11 @@ const Signup = () => {
                     placeholder="Enter your email"
                     value={inputs.email}
                     onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
+                    className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
 
-                <label htmlFor="password">Password:</label>
+                {/* Password Field */}
+                <label htmlFor="password" className="block text-gray-600 mb-1">Password:</label>
                 <input
                     type="password"
                     id="password"
@@ -56,53 +60,65 @@ const Signup = () => {
                     placeholder="Enter your password"
                     value={inputs.password}
                     onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
+                    className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
 
-                <label htmlFor="avatar">Avatar:</label>
+                {/* Avatar Upload */}
+                <label htmlFor="avatar" className="block text-gray-600 mb-1">Avatar:</label>
                 <input
                     type="file"
                     id="avatar"
                     name="avatar"
-                    onChange={(e) => {
-                        console.log(e.target.files[0])
-                        setInputs({ ...inputs, avatar: e.target.files[0] })
-                    }
-                    }
+                    onChange={(e) => setInputs({ ...inputs, avatar: e.target.files[0] })}
+                    className="w-full px-4 py-2 mb-4 border rounded-lg cursor-pointer"
                 />
 
-                <label>Admin:</label>
-                <div>
-                    <input
-                        type="radio"
-                        id="admin-yes"
-                        name="isAdmin"
-                        value="true"
-                        checked={inputs.isAdmin === true}
-                        onChange={() => setInputs({ ...inputs, isAdmin: true })}
-                    />
-                    <label htmlFor="admin-yes">Yes</label>
-
-                    <input
-                        type="radio"
-                        id="admin-no"
-                        name="isAdmin"
-                        value="false"
-                        checked={inputs.isAdmin === false}
-                        onChange={() => setInputs({ ...inputs, isAdmin: false })}
-                    />
-                    <label htmlFor="admin-no">No</label>
+                {/* Admin Selection */}
+                <label className="block text-gray-600 mb-1">Admin:</label>
+                <div className="flex items-center gap-4 mb-6">
+                    <div className="flex items-center">
+                        <input
+                            type="radio"
+                            id="admin-yes"
+                            name="isAdmin"
+                            value="true"
+                            checked={inputs.isAdmin === true}
+                            onChange={() => setInputs({ ...inputs, isAdmin: true })}
+                            className="mr-2"
+                        />
+                        <label htmlFor="admin-yes" className="text-gray-600">Yes</label>
+                    </div>
+                    <div className="flex items-center">
+                        <input
+                            type="radio"
+                            id="admin-no"
+                            name="isAdmin"
+                            value="false"
+                            checked={inputs.isAdmin === false}
+                            onChange={() => setInputs({ ...inputs, isAdmin: false })}
+                            className="mr-2"
+                        />
+                        <label htmlFor="admin-no" className="text-gray-600">No</label>
+                    </div>
                 </div>
 
-                <button type="submit" className="btn">
+                {/* Submit Button */}
+                <button 
+                    type="submit" 
+                    className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
+                >
                     Submit
                 </button>
 
-                <div className="ooo">
+                <div className="text-center my-4 text-gray-500">
                     <h2>OR</h2>
                 </div>
 
-                <h5>Already have an account?</h5>
-                <Link to="/login" className="btn1">
+                <p className="text-center text-gray-600">Already have an account?</p>
+                <Link 
+                    to="/login" 
+                    className="block text-center text-blue-500 hover:underline mt-2"
+                >
                     Login
                 </Link>
             </form>
