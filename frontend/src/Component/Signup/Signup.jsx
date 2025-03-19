@@ -63,6 +63,7 @@ const Signup = () => {
                 <label htmlFor="avatar" className="block text-gray-600 mb-1">Avatar:</label>
                 <input
                     type="file"
+                    accept="image/*"
                     id="avatar"
                     name="avatar"
                     onChange={(e) => setInputs({ ...inputs, avatar: e.target.files[0] })}
