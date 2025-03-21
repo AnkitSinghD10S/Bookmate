@@ -20,11 +20,11 @@ function Nav() {
     }, []);
 
     return (
-        <nav className="nav-bar fixed top-0 left-0 w-full z-50 bg-gray-900 text-white px-6 py-4 flex justify-between items-center transition-shadow duration-300">
+        <nav className="nav-bar fixed w-full z-50 font-semibold bg-gray-900 text-white font-bold px-6 py-4 flex justify-between items-center transition-shadow duration-300">
             
             <div className="flex items-center gap-4">
-                <img src="logo1.png" alt="Logo" className="h-14 w-14" />
-                <h1 className="text-gray-400 text-lg">v1</h1>
+                <img src="logo1.png" alt="Logo" className="h-[4vw] w-[4vw] " />
+                <h1 className="text-gray-400 text-[2vw]">v1</h1>
             </div>
             
             <div className="flex items-center bg-gray-700 rounded-full px-4 py-2 w-1/3">
@@ -38,19 +38,19 @@ function Nav() {
 
             <ul className="flex items-center gap-6">
                 <li>
-                    <Link to="/" className="text-gray-300 hover:text-green-400 transition">Home</Link>
+                    <Link to="/" className="text-gray-300 text-[1.6vw] hover:text-green-400 transition">Home</Link>
                 </li>
                 <li>
-                    <Link to="#" className="text-gray-300 hover:text-green-400 transition">Contact</Link>
+                    <Link to="#" className="text-gray-300 text-[1.6vw] hover:text-green-400 transition">Contact</Link>
                 </li>
                 <li>
-                    <Link to="/About" className="text-gray-300 hover:text-green-400 transition">About us</Link>
+                    <Link to="/About" className="text-gray-300 text-[1.6vw] hover:text-green-400 transition">About us</Link>
                 </li>
                 <li>
-                    <Link to="/login" className="text-gray-300 hover:text-green-400 transition">Log in</Link>
+                    <Link to="/login" className="text-gray-300 text-[1.6vw] hover:text-green-400 transition ">Log in</Link>
                 </li>
                 <li>
-                    <Link to="/uploadBook" className="text-gray-300 hover:text-green-400 transition">Upload Book</Link>
+                    <Link to="/uploadBook" className="text-gray-300 text-[1.6vw] hover:text-green-400 transition">Upload Book</Link>
                 </li>
             </ul>
 
