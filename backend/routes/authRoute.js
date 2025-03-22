@@ -3,12 +3,13 @@ import { User } from "../models/userModel.js";
 import verifyJWT from '../verifyJWT.js'
 import { upload } from "../multer.js";
 import { uploadCloudinary } from "../cloudinary.js";
+import { sendVerificationEamil,senWelcomeEmail } from "../email/email.js";
 const router = express.Router();
 
 router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (req, res) => {
     try {
         const { name, email, password, isBuyer } = req.body;
-        if (!name || !email || !password) {
+        if (!name || !email || !password ||!isBuyer) {
             return res.status(400).json({ message: "All fields are required" });
         }
         const userOld = await User.findOne({ email: email });
@@ -29,13 +30,14 @@ router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (re
                 return res.status(500).json({ message: "Error uploading avatar." });
             }
         }
-
+        const verificationToken= Math.floor(100000 + Math.random() * 900000).toString()
         const user = new User({
-            name,
-            email,
-            password,
-            isBuyer,
-            avatar
+            name:name,
+            email:email,
+            password:password,
+            verificationCode:verificationToken,
+            isBuyer:isBuyer,
+            avatar:avatar
         });
 
         const savedUser = await user.save();
@@ -44,13 +46,37 @@ router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (re
         if (!savedUser) {
             return res.status(500).json({ message: "Something went wrong during user creation" });
         }
-
+        await sendVerificationEamil(user.email,verificationToken)
         res.status(201).json({ message: "User created successfully" });
     } catch (error) {
         console.error("Error in signup:", error);
         res.status(500).json({ message: "Server error" });
     }
 });
+
+router.post('/emailverify',async(req,res)=>{
+    try {
+        const {code}=req.body 
+        const user= await User.findOne({
+            verificationCode:code,
+        })
+        if (!user) {
+            return res.status(400).json({message:"Inavlid or Expired Code"})
+                
+            }
+          
+     user.isVerified=true;
+     user.verficationToken=undefined;
+     await user.save()
+     await senWelcomeEmail(user.email,user.name)
+     return res.status(200).json({success:true,message:"Email Verifed Successfully"})
+           
+    } catch (error) {
+        console.log(error)
+        return res.status(400).json({success:false,message:"internal server error"})
+    }
+}
+)
 
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
