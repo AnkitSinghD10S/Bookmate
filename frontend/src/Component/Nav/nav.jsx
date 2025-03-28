@@ -41,7 +41,7 @@ function Nav() {
                     <Link to="/" className="text-gray-300 text-[1.6vw] hover:text-green-400 transition">Home</Link>
                 </li>
                 <li>
-                    <Link to="#" className="text-gray-300 text-[1.6vw] hover:text-green-400 transition">Contact</Link>
+                    <Link to="/Contact" className="text-gray-300 text-[1.6vw] hover:text-green-400 transition">Contact</Link>
                 </li>
                 <li>
                     <Link to="/About" className="text-gray-300 text-[1.6vw] hover:text-green-400 transition">About us</Link>
