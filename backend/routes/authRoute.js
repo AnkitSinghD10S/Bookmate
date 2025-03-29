@@ -66,7 +66,6 @@ router.post('/emailverify',async(req,res)=>{
             }
           
      user.isVerified=true;
-     user.verficationToken=undefined;
      await user.save()
      await senWelcomeEmail(user.email,user.name)
      return res.status(200).json({success:true,message:"Email Verifed Successfully"})

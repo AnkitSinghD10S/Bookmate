@@ -5,7 +5,7 @@ import { Verification_Email_Template, Welcome_Email_Template } from "./email_tem
 export const sendVerificationEamil=async(email,verificationCode)=>{
     try {
      const response=   await transporter.sendMail({
-            from: `${process.env.email}`,
+            from: `${process.env.EMAIL}`,
 
             to: email,
             subject: "Verify your Email",
