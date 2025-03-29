@@ -42,9 +42,9 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Book'
     }],
-    isBuyer: {
-        type: Boolean,
-        default: false
+    role: {
+        type:String,
+        enum:['seller','buyer','admin']
     },
 }, {
     timestamps: true

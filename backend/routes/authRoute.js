@@ -8,15 +8,14 @@ const router = express.Router();
 
 router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (req, res) => {
     try {
-        const { name, email, password, isBuyer } = req.body;
-        if (!name || !email || !password ||!isBuyer) {
+        const { name, email, password, role } = req.body;
+        if (!name || !email || !password || !role) {
             return res.status(400).json({ message: "All fields are required" });
         }
         const userOld = await User.findOne({ email: email });
         if (userOld) {
             return res.status(400).json({ message: "User already exists" });
         }
-
         let avatar = null;
         if (req.files?.avatar && Array.isArray(req.files.avatar) && req.files.avatar[0]) {
             try {
@@ -36,7 +35,7 @@ router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (re
             email:email,
             password:password,
             verificationCode:verificationToken,
-            isBuyer:isBuyer,
+            role:role,
             avatar:avatar
         });
 
@@ -78,17 +77,17 @@ router.post('/emailverify',async(req,res)=>{
 )
 
 router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
-    if (!email || !password) {
+    const { email, password ,role} = req.body;
+    if (!email || !password ||!role) {
         return res.status(400).json({ error: "All fields are required" });
     }
-
     let user = await User.findOne({ email }).populate({
         path: "savedBook",
         select: "bookName bookAuthorName publishedYear bookImage bookLink"
     })
-    
-    
+    if(user.role !== role){
+        //return res.status.............
+    }
     if (!user) {
         return res.status(404).json({ error: "User not found" });
     }
