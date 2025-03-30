@@ -17,7 +17,7 @@ router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (re
             if (!userOld.isVerified) {
                 await User.findByIdAndDelete(userOld._id);
             } else {
-                return res.status(401).json({ message: "This user already exists." });
+                return res.status(401).json({ message: "This user already exists."});
             }
         }      
         let avatar = null;
@@ -49,8 +49,10 @@ router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (re
         if (!savedUser) {
             return res.status(500).json({ message: "Something went wrong during user creation" });
         }
+        const newUser = await User.findById(savedUser._id).select('-password -verificationCode -isVerified');
+
         await sendVerificationEamil(user.email,verificationToken)
-        res.status(201).json({ message: "User created successfully" });
+        res.status(201).json({ message: "User created successfully",newUser});
     } catch (error) {
         console.error("Error in signup:", error);
         res.status(500).json({ message: "Server error" });

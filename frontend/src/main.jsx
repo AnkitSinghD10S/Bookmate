@@ -9,9 +9,12 @@ import Signup from "./Component/Signup/Signup.jsx";
 import UploadBook from "./Component/uploadBook/uploadBook.jsx";
 import About from "./Component/About/About.jsx";
 import Contact from "./Component/Contact/Contact.jsx";
+import { Provider } from "react-redux";
+import store from "./store/store.js";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
+        <Provider store={store}>
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<App />}>
@@ -24,5 +27,6 @@ createRoot(document.getElementById("root")).render(
                 </Route>
             </Routes>
         </BrowserRouter>
+    </Provider>
     </StrictMode>
 );

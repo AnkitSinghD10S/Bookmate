@@ -1,10 +1,9 @@
-import useGetBooks from "../../../utils/useGetBooks";
 import Card from "../Card/card";
 import ImageSlider from "../BookSlider/index";
+import { useState } from "react";
 
 function Home() {
-  const { books } = useGetBooks();
-
+  const[books,setBooks] = useState([]);
   return (
     <>
       <div className="bg-gray-800 w-full text-white p-4">

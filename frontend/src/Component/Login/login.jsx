@@ -1,26 +1,12 @@
 import { useState } from "react";
-import useLogin from "../../../utils/useLogin.js";
 import { Link } from 'react-router-dom';
 
 const Login = () => {
-    const [inputs, setInputs] = useState({
-        email: "",
-        password: "",
-    });
-
-    const { login } = useLogin();
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        await login(inputs);
-    };
-
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
             
             <form 
                 className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
-                onSubmit={handleSubmit}
             >
                 <h2 className="text-2xl font-bold text-gray-700 text-center mb-6">Login</h2>
 
@@ -30,8 +16,6 @@ const Login = () => {
                     id="email"
                     name="email"
                     placeholder="Enter your email"
-                    value={inputs.email}
-                    onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
                     className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
 
@@ -41,8 +25,6 @@ const Login = () => {
                     id="password"
                     name="password"
                     placeholder="Enter your password"
-                    value={inputs.password}
-                    onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
                     className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
                 />
 

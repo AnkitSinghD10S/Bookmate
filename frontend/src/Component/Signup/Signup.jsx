@@ -1,26 +1,60 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import useSignup from '../../../utils/useSignup';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setAuth } from '../../features/authSlice';
 
 const Signup = () => {
-    const [inputs, setInputs] = useState({
-        name: "",
-        email: "",
-        password: "",
-        avatar: null,
-        isAdmin: false,
+    const [input, setInput] = useState({
+        name: '',
+        email: '',
+        password: '',
+        role: '',
+        avatar: null
     });
 
-    const { signup } = useSignup();
+    const dispatch = useDispatch();  
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        await signup(inputs);
+        if (!input.name || !input.email || !input.password || !input.role) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+            formData.append('name', input.name);
+            formData.append('email', input.email);
+            formData.append('password', input.password);
+            formData.append('role', input.role);
+            
+            if (input.avatar) {
+                formData.append('avatar', input.avatar);
+            }
+
+            const response = await axios.post(
+                'http://localhost:4000/api/auth/signup',
+                formData,
+                {
+                    withCredentials: true,
+                    headers: { 'Content-Type': 'multipart/form-data' }
+                }
+            );
+
+            console.log(response);
+            dispatch(setAuth(response.data.newUser));
+
+            navigate('/')
+        } catch (error) {
+            console.error("Signup failed:", error);
+            alert(error.response?.data?.message || "Signup failed! Please try again.");
+        }
     };
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            
             <form 
                 className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
                 onSubmit={handleSubmit}
@@ -32,10 +66,11 @@ const Signup = () => {
                     type="text"
                     id="name"
                     name="name"
+                    value={input.name}
+                    onChange={(e) => setInput({ ...input, name: e.target.value })}
                     placeholder="Enter your name"
-                    value={inputs.name}
-                    onChange={(e) => setInputs({ ...inputs, name: e.target.value })}
                     className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    required
                 />
 
                 <label htmlFor="email" className="block text-gray-600 mb-1">Email:</label>
@@ -44,9 +79,10 @@ const Signup = () => {
                     id="email"
                     name="email"
                     placeholder="Enter your email"
-                    value={inputs.email}
-                    onChange={(e) => setInputs({ ...inputs, email: e.target.value })}
+                    value={input.email}
+                    onChange={(e) => setInput({ ...input, email: e.target.value })}
                     className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    required
                 />
 
                 <label htmlFor="password" className="block text-gray-600 mb-1">Password:</label>
@@ -54,10 +90,11 @@ const Signup = () => {
                     type="password"
                     id="password"
                     name="password"
+                    value={input.password}
+                    onChange={(e) => setInput({ ...input, password: e.target.value })}
                     placeholder="Enter your password"
-                    value={inputs.password}
-                    onChange={(e) => setInputs({ ...inputs, password: e.target.value })}
                     className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    required
                 />
 
                 <label htmlFor="avatar" className="block text-gray-600 mb-1">Avatar:</label>
@@ -66,35 +103,38 @@ const Signup = () => {
                     accept="image/*"
                     id="avatar"
                     name="avatar"
-                    onChange={(e) => setInputs({ ...inputs, avatar: e.target.files[0] })}
+                    onChange={(e) => setInput({ ...input, avatar: e.target.files[0] })}
                     className="w-full px-4 py-2 mb-4 border rounded-lg cursor-pointer"
                 />
-                <label className="block text-gray-600 mb-1">Buyer :</label>
+
+                <label className="block text-gray-600 mb-1">Role:</label>
                 <div className="flex items-center gap-4 mb-6">
-                    <div className="flex items-center">
+                    <label htmlFor="buyer" className="flex items-center cursor-pointer">
                         <input
                             type="radio"
-                            id="admin-yes"
-                            name="isAdmin"
-                            value="true"
-                            checked={inputs.isAdmin === true}
-                            onChange={() => setInputs({ ...inputs, isAdmin: true })}
+                            id="buyer"
+                            name="role"
+                            value="buyer"
+                            checked={input.role === 'buyer'}
+                            onChange={(e) => setInput({ ...input, role: e.target.value })}
                             className="mr-2"
+                            aria-label="Buyer Role"
                         />
-                        <label htmlFor="admin-yes" className="text-gray-600">Yes</label>
-                    </div>
-                    <div className="flex items-center">
+                        Buyer
+                    </label>
+                    <label htmlFor="seller" className="flex items-center cursor-pointer">
                         <input
                             type="radio"
-                            id="admin-no"
-                            name="isAdmin"
-                            value="false"
-                            checked={inputs.isAdmin === false}
-                            onChange={() => setInputs({ ...inputs, isAdmin: false })}
+                            id="seller"
+                            name="role"
+                            value="seller"
+                            checked={input.role === 'seller'}
+                            onChange={(e) => setInput({ ...input, role: e.target.value })}
                             className="mr-2"
+                            aria-label="Seller Role"
                         />
-                        <label htmlFor="admin-no" className="text-gray-600">No</label>
-                    </div>
+                        Seller
+                    </label>
                 </div>
 
                 <button 
