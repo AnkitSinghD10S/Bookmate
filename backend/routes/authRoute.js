@@ -14,8 +14,12 @@ router.post("/signup", upload.fields([{name: 'avatar', maxCount: 1}]), async (re
         }
         const userOld = await User.findOne({ email: email });
         if (userOld) {
-            return res.status(400).json({ message: "User already exists" });
-        }
+            if (!userOld.isVerified) {
+                await User.findByIdAndDelete(userOld._id);
+            } else {
+                return res.status(401).json({ message: "This user already exists." });
+            }
+        }      
         let avatar = null;
         if (req.files?.avatar && Array.isArray(req.files.avatar) && req.files.avatar[0]) {
             try {
@@ -86,7 +90,7 @@ router.post("/login", async (req, res) => {
         select: "bookName bookAuthorName publishedYear bookImage bookLink"
     })
     if(user.role !== role){
-        //return res.status.............
+        return res.status(401).json({message:"User does Not exist to that particular Role"})
     }
     if (!user) {
         return res.status(404).json({ error: "User not found" });
@@ -120,11 +124,12 @@ router.get("/logout",verifyJWT, async(req, res) => {
 router.patch("/updateDetails", verifyJWT, async (req, res) => {
     try {
         const user = req.user;
-        const { name, email } = req.body;
+        const { name, email, role } = req.body;
         const updatedDetails = {};
 
         if (name) updatedDetails.name = name;
         if (email) updatedDetails.email = email;
+        if(role)updatedDetails.role = role;
         let avatar = null;
 
         if (req.files?.avatar && Array.isArray(req.files.avatar) && req.files.avatar[0]) {
