@@ -46,7 +46,7 @@ const Signup = () => {
             console.log(response);
             dispatch(setAuth(response.data.newUser));
 
-            navigate('/')
+            navigate('/login')
         } catch (error) {
             console.error("Signup failed:", error);
             alert(error.response?.data?.message || "Signup failed! Please try again.");

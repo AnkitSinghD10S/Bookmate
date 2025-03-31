@@ -91,6 +91,9 @@ router.post("/login", async (req, res) => {
         path: "savedBook",
         select: "bookName bookAuthorName publishedYear bookImage bookLink"
     })
+    if(!user.isVerified){
+        return res.status(405).json({message:"You are currently not verified email"})
+    }
     if(user.role !== role){
         return res.status(401).json({message:"User does Not exist to that particular Role"})
     }
