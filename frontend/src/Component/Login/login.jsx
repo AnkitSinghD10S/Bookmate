@@ -86,7 +86,7 @@ const Login = () => {
                     <h2>OR</h2>
                 </div>
 
-                <p className="text-center text-gray-600">Don't have an account?</p>
+                <p className="text-center text-gray-600">Do not have an account?</p>
                 <Link 
                     to="/signup" 
                     className="block text-center text-blue-500 hover:underline mt-2"

@@ -45,8 +45,7 @@ const Signup = () => {
 
             console.log(response);
             dispatch(setAuth(response.data.newUser));
-
-            navigate('/login')
+            navigate('/verifyEmail')
         } catch (error) {
             console.error("Signup failed:", error);
             alert(error.response?.data?.message || "Signup failed! Please try again.");

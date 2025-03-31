@@ -1,32 +1,33 @@
-import { useState } from "react";
-import axios from 'axios';
+import { useState, useRef } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function OTP() {
   const [otp, setOtp] = useState(new Array(6).fill(""));
+  const inputRefs = useRef([]);
   const navigate = useNavigate();
 
   const handleChange = (e, index) => {
     const value = e.target.value;
     if (isNaN(value) || value.length > 1) return;
-
+    
     let newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
 
-    if (index < 5 && value !== "") {
-      document.getElementById(otp-input-${index + 1}).focus();
+    if (value && index < 5) {
+      inputRefs.current[index + 1]?.focus();
     }
   };
 
-  const handleKeyDown = (event, index) => {
-    if (event.key === "Backspace") {
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace") {
       let newOtp = [...otp];
-      newOtp[index] = ""; 
+      newOtp[index] = "";
       setOtp(newOtp);
-
-      if (index > 0) {
-        document.getElementById(otp-input-${index - 1}).focus();
+      
+      if (!otp[index] && index > 0) {
+        inputRefs.current[index - 1]?.focus();
       }
     }
   };
@@ -39,15 +40,10 @@ function OTP() {
 
   const handleSubmit = async () => {
     try {
-      const otpCode = otp.join(""); 
-      const response = await axios.post("http://localhost:5555/user/verifyEmail", {
-        code: otpCode,
-      });
-
-      console.log("Response:", response.data);
+      const otpCode = otp.join("");
+      const response = await axios.post("http://localhost:4000/api/auth/emailverify", { code: otpCode });
       alert(response?.data?.message || "User registered successfully.");
-      navigate('/sign_in_up', { state: { isLogin: true, loading: false } });
-
+      navigate("/login");
     } catch (error) {
       console.error("Something went wrong", error);
     }
@@ -62,7 +58,7 @@ function OTP() {
           {otp.map((data, index) => (
             <input
               key={index}
-              id={otp-input-${index}}
+              ref={(el) => (inputRefs.current[index] = el)}
               type="text"
               value={data}
               onChange={(e) => handleChange(e, index)}
@@ -72,7 +68,10 @@ function OTP() {
             />
           ))}
         </div>
-        <button onClick={handleSubmit} className="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition">
+        <button
+          onClick={handleSubmit}
+          className="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition"
+        >
           Submit
         </button>
       </div>
