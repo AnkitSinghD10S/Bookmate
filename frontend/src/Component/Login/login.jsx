@@ -1,18 +1,38 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { Link ,useNavigate} from 'react-router-dom';
+import { useSelector ,useDispatch} from "react-redux";
+import axios from "axios";
+import { setAuth } from "../../features/authSlice";
 
 const Login = () => {
     const user = useSelector((state) => state.user?.user || {}); 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [input, setInput] = useState({
         email: user?.email || "",
         password: "",
         role: user?.role || "buyer",
     });
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async(e) => {
         e.preventDefault();
-        console.log("Logging in with:", input);
+        try {
+            console.log(input)
+            const response = await axios.post(
+                'http://localhost:4000/api/auth/login',
+                input,
+                {
+                    withCredentials: true,
+                }
+            );
+            console.log(response);
+            dispatch(setAuth(response.data.user));
+            navigate('/')
+        }
+        catch(error){
+            console.error("login failed:", error);
+            alert(error.response?.data?.message || "login failed! Please try again.");
+        }
     };
 
     return (
