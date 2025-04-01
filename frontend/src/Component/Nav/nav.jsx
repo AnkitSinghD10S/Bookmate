@@ -1,10 +1,14 @@
 import { useEffect } from 'react';
 import { IoSearch } from "react-icons/io5";
-import { useSelector } from 'react-redux';
-import { Link, NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { NavLink , useNavigate} from 'react-router-dom';
+import axios from 'axios';
+import { clearAuth } from '../../features/authSlice';
 
 function Nav() {
-    const user = useSelector((state) => state.auth.user)
+    const user = useSelector((state) => state.auth.user);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     useEffect(() => {
         const handleScroll = () => {
             const nav = document.querySelector('.nav-bar');
@@ -20,6 +24,25 @@ function Nav() {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
+
+    const handleLogout = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.get('http://localhost:4000/api/auth/logout', { withCredentials: true });
+            console.log("Logout successful:", response.data);
+            dispatch(clearAuth());
+            navigate('/login')
+        } catch (error) {
+            console.error("Logout failed:", error);
+
+            if (error.response?.status === 401) {
+                alert("You are already logged out or unauthorized.");
+                dispatch(clearAuth());
+            } else {
+                alert(error.response?.data?.message || "Logout failed! Please try again.");
+            }
+        }
+    };
 
     return (
         <nav className="nav-bar fixed w-full z-50 font-semibold bg-gray-900 text-white font-bold px-6 py-4 flex justify-between items-center transition-shadow duration-300">
@@ -40,16 +63,12 @@ function Nav() {
 
             <ul className="flex items-center gap-6">
                 <li>
-                    <NavLink
-                        to="/"
-                        className={({ isActive }) =>
-                            `text-[1.6vw] transition ${isActive ? 'text-green-400' : 'text-gray-300'}`
-                        }
-                    >
+                    <NavLink to="/" className={({ isActive }) =>
+                        `text-[1.6vw] transition ${isActive ? 'text-green-400' : 'text-gray-300'}`
+                    }>
                         Home
                     </NavLink>
                 </li>
-
                 <li>
                     <NavLink to="/Contact" className={({ isActive }) =>
                         `text-[1.6vw] transition ${isActive ? 'text-green-400' : 'text-gray-300'}`
@@ -60,31 +79,33 @@ function Nav() {
                 <li>
                     <NavLink to="/About" className={({ isActive }) =>
                         `text-[1.6vw] transition ${isActive ? 'text-green-400' : 'text-gray-300'}`
-                    }>About us</NavLink>
+                    }>
+                        About us
+                    </NavLink>
                 </li>
                 <li>
                     {user ? (
-                        <Link to="/logout" className="text-gray-300 text-[1.6vw] hover:text-green-400 transition">
+                        <button onClick={handleLogout} className="text-gray-300 text-[1.6vw] hover:text-red-600 transition">
                             Log out
-                        </Link>
+                        </button>
                     ) : (
-                        <Link to="/login" className="text-gray-300 text-[1.6vw] hover:text-green-400 transition">
+                        <NavLink to="/login" className={({ isActive }) =>
+                            `text-gray-300 text-[1.6vw] hover:text-blue-600 transition ${isActive ? 'text-green-400' : 'text-gray-300'}`
+                        }>
                             Log in
-                        </Link>
+                        </NavLink>
                     )}
                 </li>
-
                 <li>
-                    {user.role === 'seller' ?
-                        (
-                            <Link to="/uploadBook" className="text-gray-300 text-[1.6vw] hover:text-green-400 transition">Upload Book</Link>
-                        )
-                        : (
-                            ""
-                        )}
+                    {(user?.role === 'seller' || user?.role === 'admin') && (
+                        <NavLink to="/uploadBook" className={({ isActive }) =>
+                            `text-[1.6vw] transition ${isActive ? 'text-green-400' : 'text-gray-300'}`
+                        }>
+                            Upload Book
+                        </NavLink>
+                    )}
                 </li>
             </ul>
-
         </nav>
     );
 }
