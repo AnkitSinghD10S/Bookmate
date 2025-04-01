@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function OTP() {
   const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [loading,setLoading] = useState(false);
   const inputRefs = useRef([]);
   const navigate = useNavigate();
 
@@ -40,9 +41,11 @@ function OTP() {
 
   const handleSubmit = async () => {
     try {
+      setLoading(true);
       const otpCode = otp.join("");
       const response = await axios.post("http://localhost:4000/api/auth/emailverify", { code: otpCode });
       alert(response?.data?.message || "User registered successfully.");
+      setLoading(false);
       navigate("/login");
     } catch (error) {
       console.error("Something went wrong", error);
@@ -72,7 +75,7 @@ function OTP() {
           onClick={handleSubmit}
           className="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition"
         >
-          Submit
+          {loading?"verifying.........":"Submit"}
         </button>
       </div>
     </div>
