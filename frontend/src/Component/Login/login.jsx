@@ -13,11 +13,11 @@ const Login = () => {
         password: "",
         role: user?.role || "buyer",
     });
-
+    const [loading,setLoading] = useState(false);
     const handleSubmit = async(e) => {
         e.preventDefault();
         try {
-            console.log(input)
+            setLoading(true);
             const response = await axios.post(
                 'http://localhost:4000/api/auth/login',
                 input,
@@ -27,6 +27,7 @@ const Login = () => {
             );
             console.log(response);
             dispatch(setAuth(response.data.user));
+            setLoading(false);
             navigate('/')
         }
         catch(error){
@@ -95,11 +96,11 @@ const Login = () => {
                     </label>
                 </div>
 
-                <button 
-                    type="submit" 
+                <button
+                    type="submit"
                     className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
                 >
-                    Login
+                    {loading ? "Logging..." : "Login"}
                 </button>
 
                 <div className="text-center my-4 text-gray-500">

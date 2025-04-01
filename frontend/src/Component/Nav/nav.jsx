@@ -28,8 +28,7 @@ function Nav() {
     const handleLogout = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.get('http://localhost:4000/api/auth/logout', { withCredentials: true });
-            console.log("Logout successful:", response.data);
+            await axios.get('http://localhost:4000/api/auth/logout', { withCredentials: true });
             dispatch(clearAuth());
             navigate('/login')
         } catch (error) {

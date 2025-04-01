@@ -12,6 +12,7 @@ import Contact from "./Component/Contact/Contact.jsx";
 import { Provider } from "react-redux";
 import store from "./store/store.js";
 import OTP from "./Component/OTP/AuthOtp.jsx";
+import Profile from "./Component/Profile/Profile.jsx";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
@@ -26,6 +27,7 @@ createRoot(document.getElementById("root")).render(
                     <Route path="/About" element={<About />} />
                     <Route path="/Contact" element={<Contact />} />
                     <Route path="/verifyEmail" element={<OTP/>}/>
+                    <Route path="/profile" element={<Profile/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

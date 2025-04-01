@@ -12,8 +12,8 @@ const Signup = () => {
         role: '',
         avatar: null
     });
-
-    const dispatch = useDispatch();  
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -24,12 +24,13 @@ const Signup = () => {
         }
 
         try {
+            setLoading(true);
             const formData = new FormData();
             formData.append('name', input.name);
             formData.append('email', input.email);
             formData.append('password', input.password);
             formData.append('role', input.role);
-            
+
             if (input.avatar) {
                 formData.append('avatar', input.avatar);
             }
@@ -45,6 +46,7 @@ const Signup = () => {
 
             console.log(response);
             dispatch(setAuth(response.data.newUser));
+            setLoading(false)
             navigate('/verifyEmail')
         } catch (error) {
             console.error("Signup failed:", error);
@@ -54,7 +56,7 @@ const Signup = () => {
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <form 
+            <form
                 className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
                 onSubmit={handleSubmit}
             >
@@ -135,12 +137,11 @@ const Signup = () => {
                         Seller
                     </label>
                 </div>
-
-                <button 
-                    type="submit" 
+                <button
+                    type="submit"
                     className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
                 >
-                    Submit
+                    {loading ? "Submitting..." : "Submit"}
                 </button>
 
                 <div className="text-center my-4 text-gray-500">
@@ -148,8 +149,8 @@ const Signup = () => {
                 </div>
 
                 <p className="text-center text-gray-600">Already have an account?</p>
-                <Link 
-                    to="/login" 
+                <Link
+                    to="/login"
                     className="block text-center text-blue-500 hover:underline mt-2"
                 >
                     Login
