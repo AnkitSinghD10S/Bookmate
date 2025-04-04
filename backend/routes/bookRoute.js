@@ -10,7 +10,7 @@ const router = express.Router();
 router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "bookImage", maxCount: 1 }]), verifyJWT, async (req, res) => {
     try {
         let user = req.user;
-        if (!user.isBuyer) {
+        if (user.role === 'buyer') {
             return res.status(401).json({message:"Unauthorized: Only admins can upload books"});
         }
 

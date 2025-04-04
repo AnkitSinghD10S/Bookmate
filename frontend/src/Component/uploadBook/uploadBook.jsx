@@ -40,7 +40,6 @@ function UploadBook() {
           Upload Book
         </h2>
 
-        {/* Book Name */}
         <label htmlFor="bookName" className="block text-gray-600 mb-1">Book Name:</label>
         <input
           type="text"
@@ -51,7 +50,6 @@ function UploadBook() {
           className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
-        {/* Author Name */}
         <label htmlFor="bookAuthorName" className="block text-gray-600 mb-1">Author:</label>
         <input
           type="text"
@@ -62,7 +60,6 @@ function UploadBook() {
           className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
-        {/* Published Year */}
         <label htmlFor="publishedYear" className="block text-gray-600 mb-1">Published Year:</label>
         <input
           type="date"
@@ -72,7 +69,6 @@ function UploadBook() {
           className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
 
-        {/* Book Image Upload */}
         <label htmlFor="bookImage" className="block text-gray-600 mb-1">Book Image:</label>
         <input
           type="file"
@@ -81,7 +77,6 @@ function UploadBook() {
           className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none"
         />
 
-        {/* Book File Upload */}
         <label htmlFor="bookLink" className="block text-gray-600 mb-1">Book:</label>
         <input
           type="file"
@@ -89,8 +84,6 @@ function UploadBook() {
           onChange={handleFileChange}
           className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none"
         />
-
-        {/* Submit Button */}
         <button
           type="submit"
           className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
