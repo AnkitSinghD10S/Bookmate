@@ -55,14 +55,14 @@ const Signup = () => {
     };
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gray-100">
-            <form
-                className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md"
-                onSubmit={handleSubmit}
+        <div className="flex justify-center items-center p-20 min-h-screen bg-gray-800">
+            <form  
+                className=" text-white p-8 border-2 border-gray-700 bg-zinc-900 rounded-lg shadow-lg w-[50%]"
+                onSubmit={handleSubmit} 
             >
-                <h2 className="text-2xl font-bold text-gray-700 text-center mb-6">Signup</h2>
+                <h2 className="text-2xl font-bold text-white text-center mb-6">Signup</h2>
 
-                <label htmlFor="name" className="block text-gray-600 mb-1">Name:</label>
+                <label htmlFor="name" className=" text-white block  mb-1">Name:</label>
                 <input
                     type="text"
                     id="name"
@@ -70,11 +70,11 @@ const Signup = () => {
                     value={input.name}
                     onChange={(e) => setInput({ ...input, name: e.target.value })}
                     placeholder="Enter your name"
-                    className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full px-4 py-2 mb-4 border outline-none rounded-lg "
                     required
                 />
 
-                <label htmlFor="email" className="block text-gray-600 mb-1">Email:</label>
+                <label htmlFor="email" className="block text-white mb-1">Email:</label>
                 <input
                     type="email"
                     id="email"
@@ -82,11 +82,11 @@ const Signup = () => {
                     placeholder="Enter your email"
                     value={input.email}
                     onChange={(e) => setInput({ ...input, email: e.target.value })}
-                    className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full px-4 py-2 mb-4 border rounded-lg outline-none"
                     required
                 />
 
-                <label htmlFor="password" className="block text-gray-600 mb-1">Password:</label>
+                <label htmlFor="password" className="block text-white mb-1">Password:</label>
                 <input
                     type="password"
                     id="password"
@@ -94,11 +94,11 @@ const Signup = () => {
                     value={input.password}
                     onChange={(e) => setInput({ ...input, password: e.target.value })}
                     placeholder="Enter your password"
-                    className="w-full px-4 py-2 mb-4 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    className="w-full px-4 py-2 mb-4 border rounded-lg outline-none"
                     required
                 />
 
-                <label htmlFor="avatar" className="block text-gray-600 mb-1">Avatar:</label>
+                <label htmlFor="avatar" className="block text-white mb-1">Avatar:</label>
                 <input
                     type="file"
                     accept="image/*"
@@ -108,7 +108,7 @@ const Signup = () => {
                     className="w-full px-4 py-2 mb-4 border rounded-lg cursor-pointer"
                 />
 
-                <label className="block text-gray-600 mb-1">Role:</label>
+                <label className="block text-white mb-1">Role:</label>
                 <div className="flex items-center gap-4 mb-6">
                     <label htmlFor="buyer" className="flex items-center cursor-pointer">
                         <input
