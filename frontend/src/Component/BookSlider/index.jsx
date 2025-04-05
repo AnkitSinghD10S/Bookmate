@@ -24,11 +24,11 @@ const ImageSlider = () => {
   };
 
   return (
-    <div className="w-full p-4">
+    <div className="w-full px-6 py-4">
       <Slider {...settings}>
         {images.map((src, index) => (
-          <div key={index} className="flex justify-center">
-            <img src={src} alt={`Slide ${index + 1}`} className="w-full h-auto object-cover rounded-lg" />
+          <div key={index} className="flex justify-center h-auto">
+            <img src={src} alt={`Slide ${index + 1}`} className="w-full object-cover rounded-lg" />
           </div>
         ))}
       </Slider>

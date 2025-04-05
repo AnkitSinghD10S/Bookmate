@@ -44,7 +44,7 @@ function Nav() {
     };
 
     return (
-        <nav className="nav-bar fixed w-full z-50 bg-gray-900 text-white font-bold px-6 py-4 flex justify-between items-center transition-shadow duration-300">
+        <nav className="nav-bar w-full h-18 bg-gray-900 text-white font-bold px-6 py-4 flex justify-between items-center transition-shadow duration-300">
 
             <div className="flex items-center gap-4">
                 <img src="logo1.png" alt="Logo" className="h-[4vw] w-[4vw] " />

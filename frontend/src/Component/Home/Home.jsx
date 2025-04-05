@@ -23,11 +23,10 @@ function Home() {
 
   return (
     <>
-      <div className="bg-gray-800 w-full text-white p-4">
-        <ImageSlider />
-      </div>
-
-      <div className="bg-gray-800 mt-0 py-0 text-white min-h-screen">
+      <div className="bg-gray-800 text-white min-h-screen">
+        <div className="">
+          <ImageSlider />
+        </div>
         <div className="flex flex-col items-center justify-center text-center h-[400px] w-full">
           <div className="flex justify-center">
             <img src="logo1.png" alt="Logo" className="h-40 w-40" />
@@ -77,7 +76,9 @@ function Home() {
                       in Year {book.publishedYear}
                     </p>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-400 text-xs">#{index + 1}</span>
+                      <span className="text-gray-400 text-xs">
+                        #{index + 1}
+                      </span>
                       <a
                         href={book.bookLink}
                         target="_blank"
