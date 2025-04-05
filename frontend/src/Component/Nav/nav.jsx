@@ -83,6 +83,15 @@ function Nav() {
                     </NavLink>
                 </li>
                 <li>
+                    {(user?.role === 'seller' || user?.role === 'admin') && (
+                        <NavLink to="/uploadBook" className={({ isActive }) =>
+                            `text-[1.6vw] transition ${isActive ? 'text-green-400' : 'text-gray-300'}`
+                        }>
+                            Upload Book
+                        </NavLink>
+                    )}
+                </li>
+                <li>
                     {user ? (
                         <button onClick={handleLogout} className="text-gray-300 text-[1.6vw] hover:text-red-600 transition">
                             Log out
@@ -92,15 +101,6 @@ function Nav() {
                             `text-gray-300 text-[1.6vw] hover:text-blue-600 transition ${isActive ? 'text-green-400' : 'text-gray-300'}`
                         }>
                             Log in
-                        </NavLink>
-                    )}
-                </li>
-                <li>
-                    {(user?.role === 'seller' || user?.role === 'admin') && (
-                        <NavLink to="/uploadBook" className={({ isActive }) =>
-                            `text-[1.6vw] transition ${isActive ? 'text-green-400' : 'text-gray-300'}`
-                        }>
-                            Upload Book
                         </NavLink>
                     )}
                 </li>

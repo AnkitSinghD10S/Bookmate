@@ -13,7 +13,6 @@ router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "b
         if (user.role === 'buyer') {
             return res.status(401).json({message:"Unauthorized: Only admins can upload books"});
         }
-
         const { bookName, bookAuthorName, publishedYear } = req.body;
         if (!bookName || !bookAuthorName || !publishedYear) {
             return res.status(400).json({ error: "Please fill all the fields" });
@@ -46,7 +45,6 @@ router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "b
             bookImage,
             bookLink
         });
-
         await book.save();
         await user.uploadedBook.push(book);
         await user.save();
@@ -55,7 +53,6 @@ router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "b
             book,
             user
         });
-
     } catch (error) {
         console.error("Error in adding book:", error);
         return res.status(500).json({ message: "Internal server error" });

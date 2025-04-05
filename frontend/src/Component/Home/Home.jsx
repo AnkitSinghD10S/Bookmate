@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Card from "../Card/card";
 import ImageSlider from "../BookSlider/index";
 
 function Home() {
@@ -49,8 +48,7 @@ function Home() {
         </div>
 
         <div className="bg-gray-700 p-8">
-          <h1 className="text-4xl font-bold text-center mb-8">Books..</h1>
-          <Card />
+          <h1 className="text-4xl font-bold text-center mb-8">Books</h1>
 
           <div className="flex flex-wrap justify-center gap-6">
             {loading ? (
