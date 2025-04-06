@@ -112,7 +112,7 @@ router.patch("/update/:id", upload.fields([{ name: "bookImage", maxCount: 1 }, {
   
 router.delete("/delete/:id", verifyJWT, async (req, res) => {
     try {
-        if (!req.user.isBuyer) {
+        if (req.user.role == 'buyer') {
             return res.status(403).json({ message: "Unauthorized: Only admins can delete books" });
         }
 

@@ -1,19 +1,17 @@
-import React, { useState, useEffect } from "react";
+import  { useState, useEffect } from "react";
 import Nav from "../component/Nav/nav";
 import { motion, AnimatePresence } from "framer-motion";
 import { Outlet } from "react-router-dom";
-import Footer from "../component/Footer/footer"; // Make sure this path is correct
+import Footer from "../component/Footer/footer"; 
 
 const UserDashBoard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate a loading delay (e.g., fetching user data)
     const timer = setTimeout(() => {
       setLoading(false);
-    }, 2000); // 2 seconds
-
-    return () => clearTimeout(timer); // Cleanup
+    }, 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
