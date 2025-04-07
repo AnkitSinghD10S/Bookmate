@@ -83,35 +83,44 @@ router.post('/emailverify',async(req,res)=>{
 )
 
 router.post("/login", async (req, res) => {
-    const { email, password ,role} = req.body;
-    if (!email || !password ||!role) {
+    const { email, password, role } = req.body;
+
+    if (!email || !password || !role) {
         return res.status(400).json({ error: "All fields are required" });
     }
-    let user = await User.findOne({ email }).populate({
-        path: "savedBook",
-        select: "bookName bookAuthorName publishedYear bookImage bookLink"
-    })
-    if(!user.isVerified){
-        return res.status(405).json({message:"You are currently not verified email"})
-    }
-    if(user.role !== role){
-        return res.status(401).json({message:"User does Not exist to that particular Role"})
-    }
+
+    let user = await User.findOne({ email });
+
     if (!user) {
-        return res.status(404).json({ error: "User not found" });
+        return res.status(401).json({ error: "Invalid credentials" });
+    }
+
+    if (!user.isVerified) {
+        return res.status(403).json({ message: "Email is not verified" });
+    }
+
+    if (user.role !== role) {
+        return res.status(403).json({ message: "Access denied for this role" });
     }
 
     const validPassword = await user.isPasswordCorrect(password);
-    if (validPassword) {
-        const accessToken = await user.generateAccessToken();
-        user = await User.findById(user._id).select("-password");
-        return res
-            .status(200)
-            .cookie("accessToken", accessToken, { httpOnly: true, secure: true })
-            .json({ message: "Login Successfully", user });
-    } else {
-        return res.status(400).json({ error: "Input details do not match" });
+    if (!validPassword) {
+        return res.status(401).json({ error: "Invalid credentials" });
     }
+
+    const accessToken = await user.generateAccessToken();
+
+    const populatedUser = await User.findById(user._id)
+        .select("-password")
+        .populate({
+            path: "savedBook",
+            select: "bookName bookAuthorName publishedYear bookImage bookLink"
+        });
+
+    return res
+        .status(200)
+        .cookie("accessToken", accessToken, { httpOnly: true, secure: true })
+        .json({ message: "Login successful", user: populatedUser });
 });
 
 router.get("/logout",verifyJWT, async(req, res) => {

@@ -175,6 +175,7 @@ router.patch('/savedBook/:id', verifyJWT, async (req, res) => {
 
 router.patch('/removedSavedBook/:id', verifyJWT, async (req, res) => {
     try {
+        console.log("hello")
         const user = req.user;
         const bookId  = req.params.id;
 

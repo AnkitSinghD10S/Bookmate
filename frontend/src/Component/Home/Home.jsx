@@ -5,8 +5,6 @@ import ImageSlider from "../BookSlider/index";
 function Home() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  // Fetch books from API
   useEffect(() => {
     const fetchBooks = async () => {
       try {

@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 function Profile() {
   const user = useSelector((state) => state.auth.user);
@@ -27,10 +26,9 @@ function Profile() {
 
     const fetchSavedBooks = async () => {
       try {
-        const res = await axios.get('http://localhost:4000/api/saved', {
-          withCredentials: true,
-        });
-        setSavedBooks(res.data);
+        const savedBook = user.savedBook
+        setSavedBooks(savedBook);
+        
       } catch (error) {
         console.error('Error fetching saved books:', error);
       } finally {
@@ -59,6 +57,24 @@ function Profile() {
     }
   };
 
+  const handleRemovedSaved = async (bookId) => {
+    const confirm = window.confirm('Are you sure you want to unsave this book?');
+    if (!confirm) return;
+  
+    try {
+      await axios.patch(
+        `http://localhost:4000/api/book/removedSavedBook/${bookId}`,
+        {},
+        { withCredentials: true }
+      );
+  
+      setSavedBooks(prev => prev.filter(book => book._id !== bookId));
+    } catch (error) {
+      console.error('Failed to unsave book:', error);
+      alert('Failed to unsave the book. Try again.');
+    }
+  };
+  
   return (
     <div className="min-h-screen bg-gray-900 text-white px-6 py-10">
       <div className="flex items-center gap-6 mb-10">
@@ -134,21 +150,28 @@ function Profile() {
                 key={book._id}
                 className="bg-gray-800 rounded-2xl shadow-lg overflow-hidden w-72 transform hover:scale-105 transition duration-300"
               >
+                 <div
+                  onClick={() => handleRemovedSaved(book._id)}
+                  className="absolute top-3 right-3 bg-red-600 hover:bg-red-400 text-black rounded-full w-8 h-8 flex items-center justify-center shadow-md transition cursor-pointer"
+                  title="Save Book"
+                >
+                  -
+                </div>
                 <img
-                  src={book.cover || "/placeholder-book.png"}
-                  alt={book.title}
+                  src={book.bookImage || "/placeholder-book.png"}
+                  alt={book.bookName}
                   className="w-full h-64 object-cover"
                 />
                 <div className="p-4">
                   <h3 className="text-xl font-bold text-cyan-400 mb-1">
-                    {book.title}
+                    {book.bookName}
                   </h3>
                   <p className="text-sm text-gray-300 mb-2">
-                    by {book.author || 'Unknown Author'}
+                    by {book.bookAuthorName || 'Unknown Author'}
                   </p>
                   <div className="flex justify-center">
                     <a
-                      href={book.link || "#"}
+                      href={book.bookLink || "#"}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="bg-cyan-400 text-black px-4 py-1 text-sm rounded-full hover:bg-cyan-300 transition"
