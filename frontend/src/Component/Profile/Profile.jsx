@@ -26,11 +26,13 @@ function Profile() {
 
     const fetchSavedBooks = async () => {
       try {
-        const savedBook = user.savedBook
-        setSavedBooks(savedBook);
-        
+        const res = await axios.get('http://localhost:4000/api/book/saved', {
+          withCredentials: true,
+        });
+        const userBooks = res.data.savedBooks
+        setSavedBooks(userBooks);
       } catch (error) {
-        console.error('Error fetching saved books:', error);
+        console.error('Error fetching uploaded books:', error);
       } finally {
         setLoadingSaved(false);
       }

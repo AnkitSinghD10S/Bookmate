@@ -112,10 +112,6 @@ router.post("/login", async (req, res) => {
 
     const populatedUser = await User.findById(user._id)
         .select("-password")
-        .populate({
-            path: "savedBook",
-            select: "bookName bookAuthorName publishedYear bookImage bookLink"
-        });
 
     return res
         .status(200)

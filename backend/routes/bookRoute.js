@@ -199,6 +199,17 @@ router.patch('/removedSavedBook/:id', verifyJWT, async (req, res) => {
     }
 });
 
+router.get('/saved', verifyJWT, async (req, res) => {
+    try {
+        const user = await User.findById(req.user._id).populate('savedBook')
+        const savedBooks = user.savedBook;
+        return res.status(200).json({ savedBooks });
+    } catch (error) {
+        console.error("Error retrieving saved books:", error);
+        return res.status(500).json({ message: "Internal server error" });
+    }
+});
+
 
 
 export default router;
