@@ -4,7 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router";
 import "./index.css";
 import App from "./App.jsx";
 import Login from "./component/Login/login.jsx";
-import Home from "./component/Home/Home.jsx";
+import Home from "./Component/Home/Home.jsx";
 import Signup from "./component/Signup/Signup.jsx";
 import UploadBook from "./component/uploadBook/uploadBook.jsx";
 import About from "./component/About/About.jsx";
@@ -13,6 +13,7 @@ import { Provider } from "react-redux";
 import store from "./store/store.js";
 import OTP from "./component/OTP/AuthOtp.jsx";
 import Profile from "./component/Profile/Profile.jsx";
+import ShowBook from "./Component/showBook/ShowBook.jsx";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
@@ -28,6 +29,7 @@ createRoot(document.getElementById("root")).render(
                     <Route path="/Contact" element={<Contact />} />
                     <Route path="/verifyEmail" element={<OTP/>}/>
                     <Route path="/profile" element={<Profile/>}/>
+                    <Route path="/viewBook/:bookLink" element={<ShowBook/>}/>
                 </Route>
             </Routes>
         </BrowserRouter>

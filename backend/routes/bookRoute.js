@@ -20,6 +20,7 @@ router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "b
         let bookImage;
         if (req.files?.bookImage) {
             const ImageUploadResult = await uploadCloudinary(req.files.bookImage[0].path);
+            console.log("Image",ImageUploadResult);
             if (!ImageUploadResult?.secure_url) {
                 return res.status(500).json({ message: "Failed to upload book image." });
             }
@@ -30,6 +31,7 @@ router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "b
         let bookLink;
         if (req.files?.bookLink) {
             const bookUploadResult = await uploadCloudinary(req.files.bookLink[0].path);
+            console.log("Link",bookUploadResult);
             if (!bookUploadResult?.secure_url) {
                 return res.status(500).json({ message: "Failed to upload book file." });
             }

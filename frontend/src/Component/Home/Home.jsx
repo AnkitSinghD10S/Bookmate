@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import ImageSlider from "../BookSlider/index";
+import { Link } from "react-router";
 
 function Home() {
   const [books, setBooks] = useState([]);
@@ -98,14 +99,12 @@ function Home() {
                   </p>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-400 text-xs">#{index + 1}</span>
-                    <a
-                      href={book.bookLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      to={`/viewBook/${encodeURIComponent(book.bookLink)}`}
                       className="bg-cyan-400 text-black px-4 py-1 text-sm rounded-full hover:bg-cyan-300 transition"
                     >
                       Read Now
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>
