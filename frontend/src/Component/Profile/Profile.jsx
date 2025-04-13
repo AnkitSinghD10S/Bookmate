@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
+import { Link } from 'react-router';
 
 function Profile() {
   const user = useSelector((state) => state.auth.user);
@@ -90,6 +91,15 @@ function Profile() {
           <p className="text-gray-400 capitalize">{user?.role || 'reader'}</p>
         </div>
       </div>
+      {(user.role === 'admin') && (
+        <div className='flex justify-center mt-6 rounded-md'>
+          <Link
+          to="/handle-application"
+          className='bg-cyan-400 text-black px-6 py-2 text-sm font-medium rounded-md'>
+          Handle Application
+          </Link>
+        </div>
+      )}
       {(user?.role === 'seller' || user?.role === 'admin') && (
         <section className="mb-12">
           <h3 className="text-3xl font-semibold mb-6 text-cyan-400">Uploaded Books</h3>

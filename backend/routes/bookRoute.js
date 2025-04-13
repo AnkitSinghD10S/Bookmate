@@ -4,6 +4,9 @@ import { upload } from "../multer.js";
 import { uploadCloudinary } from "../cloudinary.js";
 import { User } from "../models/userModel.js";
 import verifyJWT from "../verifyJWT.js";
+import fs from 'fs';
+import path from 'path';
+
 
 const router = express.Router();
 
@@ -11,7 +14,7 @@ router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "b
     try {
         let user = req.user;
         if (user.role === 'buyer') {
-            return res.status(401).json({message:"Unauthorized: Only admins can upload books"});
+            return res.status(401).json({ message: "Unauthorized: Only admins can upload books" });
         }
         const { bookName, bookAuthorName, publishedYear } = req.body;
         if (!bookName || !bookAuthorName || !publishedYear) {
@@ -20,7 +23,7 @@ router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "b
         let bookImage;
         if (req.files?.bookImage) {
             const ImageUploadResult = await uploadCloudinary(req.files.bookImage[0].path);
-            console.log("Image",ImageUploadResult);
+            console.log("Image", ImageUploadResult);
             if (!ImageUploadResult?.secure_url) {
                 return res.status(500).json({ message: "Failed to upload book image." });
             }
@@ -31,7 +34,7 @@ router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "b
         let bookLink;
         if (req.files?.bookLink) {
             const bookUploadResult = await uploadCloudinary(req.files.bookLink[0].path);
-            console.log("Link",bookUploadResult);
+            console.log("Link", bookUploadResult);
             if (!bookUploadResult?.secure_url) {
                 return res.status(500).json({ message: "Failed to upload book file." });
             }
@@ -61,57 +64,57 @@ router.post("/new", upload.fields([{ name: "bookLink", maxCount: 1 }, { name: "b
     }
 });
 
-router.patch("/update/:id", upload.fields([{ name: "bookImage", maxCount: 1 }, { name: "bookLink", maxCount: 1 },]),verifyJWT,async (req, res) => {
-      try {
+router.patch("/update/:id", upload.fields([{ name: "bookImage", maxCount: 1 }, { name: "bookLink", maxCount: 1 },]), verifyJWT, async (req, res) => {
+    try {
         const user = req.user;
         if (!user.isBuyer) {
-          return res.status(401).json({ message: "Unauthorized: Only admins can update books" });
+            return res.status(401).json({ message: "Unauthorized: Only admins can update books" });
         }
-  
+
         const bookId = req.params.id;
         const { bookName, bookAuthorName, publishedYear } = req.body;
-  
+
         let updateFields = {};
-  
+
         if (bookName) updateFields.bookName = bookName;
         if (bookAuthorName) updateFields.bookAuthorName = bookAuthorName;
         if (publishedYear) updateFields.publishedYear = publishedYear;
-  
+
         if (req.files?.bookImage) {
-          const ImageUploadResult = await uploadCloudinary(req.files.bookImage[0].path);
-          if (!ImageUploadResult?.secure_url) {
-            return res.status(500).json({ message: "Failed to upload book image." });
-          }
-          updateFields.bookImage = ImageUploadResult.secure_url;
+            const ImageUploadResult = await uploadCloudinary(req.files.bookImage[0].path);
+            if (!ImageUploadResult?.secure_url) {
+                return res.status(500).json({ message: "Failed to upload book image." });
+            }
+            updateFields.bookImage = ImageUploadResult.secure_url;
         }
-  
+
         if (req.files?.bookLink) {
-          const bookUploadResult = await uploadCloudinary(req.files.bookLink[0].path);
-          if (!bookUploadResult?.secure_url) {
-            return res.status(500).json({ message: "Failed to upload book file." });
-          }
-          updateFields.bookLink = bookUploadResult.secure_url;
+            const bookUploadResult = await uploadCloudinary(req.files.bookLink[0].path);
+            if (!bookUploadResult?.secure_url) {
+                return res.status(500).json({ message: "Failed to upload book file." });
+            }
+            updateFields.bookLink = bookUploadResult.secure_url;
         }
-  
+
         const book = await Book.findByIdAndUpdate(
             bookId,
             { $set: updateFields },
             { new: true, runValidators: true }
-          );
-          
-  
+        );
+
+
         if (!book) {
-          return res.status(404).json({ error: "Book not found" });
+            return res.status(404).json({ error: "Book not found" });
         }
-  
+
         return res.status(200).json({ message: "Book updated successfully", book });
-      } catch (error) {
+    } catch (error) {
         console.error("Error updating the book:", error);
         return res.status(500).json({ message: "Internal server error" });
-      }
     }
-  );
-  
+}
+);
+
 router.delete("/delete/:id", verifyJWT, async (req, res) => {
     try {
         if (req.user.role == 'buyer') {
@@ -154,7 +157,7 @@ router.get("/", async (req, res) => {
 
 router.patch('/savedBook/:id', verifyJWT, async (req, res) => {
     try {
-        const userId = req.user._id; 
+        const userId = req.user._id;
         const bookId = req.params.id;
         const book = await Book.findById(bookId);
         if (!book) {
@@ -162,7 +165,7 @@ router.patch('/savedBook/:id', verifyJWT, async (req, res) => {
         }
         await User.findByIdAndUpdate(
             userId,
-            { $addToSet: { savedBook: book._id } },  
+            { $addToSet: { savedBook: book._id } },
             { new: true }
         );
         const updatedUser = await User.findById(userId).populate("savedBook");
@@ -179,7 +182,7 @@ router.patch('/removedSavedBook/:id', verifyJWT, async (req, res) => {
     try {
         console.log("hello")
         const user = req.user;
-        const bookId  = req.params.id;
+        const bookId = req.params.id;
 
         if (!bookId) {
             return res.status(400).json({ message: "Book ID is required" });
@@ -187,7 +190,7 @@ router.patch('/removedSavedBook/:id', verifyJWT, async (req, res) => {
         const updatedUser = await User.findByIdAndUpdate(
             user._id,
             { $pull: { savedBook: bookId } },
-            { new: true } 
+            { new: true }
         ).populate({
             path: "savedBook",
             select: "bookName bookAuthorName publishedYear bookImage bookLink"

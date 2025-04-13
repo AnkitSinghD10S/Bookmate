@@ -85,6 +85,18 @@ const Login = () => {
             />
             Buyer
           </label>
+          <label htmlFor="admin" className="flex items-center cursor-pointer">
+            <input
+              type="radio"
+              id="admin"
+              name="role"
+              value="admin"
+              checked={input.role === "admin"}
+              onChange={(e) => setInput({ ...input, role: e.target.value })}
+              className="mr-2 text-white"
+            />
+            Admin
+          </label>
           <label
             htmlFor="seller"
             className="flex text-white items-center cursor-pointer"
