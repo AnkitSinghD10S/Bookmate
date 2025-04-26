@@ -27,7 +27,7 @@ function Footer() {
 
       <div className="flex flex-col md:flex-row gap-4 md:gap-6 justify-center md:justify-end md:w-1/3 items-center">
         <NavLink 
-          to="/privacy-policy" 
+          to="/PrivacyPolicy" 
           className={({ isActive }) =>
             `text-sm transition ${isActive ? 'text-green-400' : 'text-gray-300'}`
           }
@@ -36,7 +36,7 @@ function Footer() {
         </NavLink>
 
         <NavLink 
-          to="/terms-of-service" 
+          to="/TermsOfService" 
           className={({ isActive }) =>
             `text-sm transition ${isActive ? 'text-green-400' : 'text-gray-300'}`
           }

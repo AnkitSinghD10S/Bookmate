@@ -15,6 +15,8 @@ import store from "./store/store.js";
 import OTP from "./Component/OTP/AuthOtp.jsx";
 import Profile from "./Component/Profile/Profile.jsx";
 import ShowBook from "./Component/showBook/ShowBook.jsx";
+import PrivacyPolicy from "./Component/PrivacyPolicy.jsx";
+import TermsOfService from "./Component/TermOfService.jsx";
 
 createRoot(document.getElementById("root")).render(
     <StrictMode>
@@ -32,6 +34,8 @@ createRoot(document.getElementById("root")).render(
                     <Route path="/profile" element={<Profile/>}/>
                     <Route path="/viewBook/:bookLink" element={<ShowBook/>}/>
                     <Route path="/handle-application" element={<HandleApplication/>}/>
+                    <Route path="/PrivacyPolicy" element={<PrivacyPolicy />}/>
+                    <Route path="/TermsOfService" element={<TermsOfService />}/>
                 </Route>
             </Routes>
         </BrowserRouter>
