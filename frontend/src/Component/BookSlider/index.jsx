@@ -9,9 +9,8 @@ const ImageSlider = () => {
     "https://www.bookswagon.com/bannerimages/81_inr.jpg?v=3.8=Slide+2",
     "https://www.bookswagon.com/bannerimages/83_inr.jpg?v=3.8=Slide+3",
     "https://www.bookswagon.com/bannerimages/70_inr.jpg?v=3.8=Slide+4"
-
-    
   ];
+
   const settings = {
     dots: true,
     infinite: true,
@@ -26,9 +25,9 @@ const ImageSlider = () => {
   return (
     <div className="w-full px-6 py-4">
       <Slider {...settings}>
-        {images.map((src, index) => (
+        {images.map((url, index) => (
           <div key={index} className="flex justify-center h-auto">
-            <img src={src} alt={`Slide ${index + 1}`} className="w-full object-cover rounded-lg" />
+            <img src={url} alt={`Slide ${index + 1}`} className="w-full object-cover rounded-lg" />
           </div>
         ))}
       </Slider>

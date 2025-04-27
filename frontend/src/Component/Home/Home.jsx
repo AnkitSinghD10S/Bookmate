@@ -6,6 +6,7 @@ import { Link } from "react-router";
 function Home() {
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
     const fetchBooks = async () => {
       try {
